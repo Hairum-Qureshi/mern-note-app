@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-type returnTypes = {
+interface returnTypes {
 	currentDate: string;
 	currentTime: string;
 	greeting: string;
-};
+}
 
 export default function useCurrentTime(): returnTypes {
 	const [currentDate, setCurrentDate] = useState("");
