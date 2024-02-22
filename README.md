@@ -3,7 +3,7 @@
 The intent of this project is for me to learn TypeScript and gain experience with React.js as well as the MERN stack.
 I also wanted to reproduce my own version of Evernote's note-taking application, but make it free like it used to.
 
-## to install all packages, run
+## To install all packages, run
 `npm install`
 
 ## To run server:
