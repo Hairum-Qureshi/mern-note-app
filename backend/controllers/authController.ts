@@ -3,16 +3,16 @@ import User, { User_Interface } from "../models/user";
 import bcrypt from "bcrypt";
 import jwt, { decode } from "jsonwebtoken";
 
-type RequestBody = {
+interface RequestBody {
 	email: string;
 	name?: string; // optional
 	password: string;
-};
+}
 
-type AuthHandlers = {
+interface AuthHandlers {
 	signUp: (req: Request, res: Response) => void;
 	signIn: (req: Request, res: Response) => void;
-};
+}
 
 function generateSecret(length: number): string {
 	const characters =
