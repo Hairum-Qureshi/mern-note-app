@@ -1,0 +1,91 @@
+body {
+	font-family: Arial;
+	color: white;
+}
+
+.split {
+	height: 100%;
+	width: 50%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.left {
+	left: 0;
+	background-color: #0c3410;
+}
+
+.right {
+	right: 0;
+	background-color: rgb(2, 30, 8);
+}
+
+.centered {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.centered p,
+a {
+	color: white;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	margin-bottom: 5px;
+}
+
+.centered p:nth-child(3) {
+	color: yellow;
+}
+
+.centered form {
+	padding: 10px;
+}
+
+.centered form input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 15px;
+	font-size: 16px;
+	margin-top: 10px;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid lime;
+	background-color: #0c3410;
+	color: white;
+}
+
+.centered form button {
+	width: 100%;
+	margin-top: 30px;
+	padding: 5px;
+	background-color: #0c3410;
+	color: white;
+	border: 1px solid rgb(5, 97, 5);
+	border-radius: 5px;
+	height: 50px;
+	font-size: 17px;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	transition: background-color 0.5s ease, border 0.5s ease;
+}
+
+.centered form button:hover {
+	background-color: #105417;
+	border: 1px solid lime;
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.centered form button:hover:hover {
+	opacity: 1;
+}
+
+.centered form button:active {
+	background-color: #0e7d19;
+}

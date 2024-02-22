@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap");
+
+:root {
+	--heading-font: "Signika Negative", sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.navbar {
+	background-color: rgb(5, 44, 8);
+	color: white;
+	width: 15%;
+	box-sizing: border-box;
+	position: absolute;
+	height: 100vh;
+	display: flex; /* Use flexbox */
+	flex-direction: column;
+}
+
+.navbar h1 {
+	margin: 10px;
+	text-align: center;
+	font-family: var(--heading-font);
+	font-weight: 400;
+	font-style: normal;
+}
+
+.navbar .user_data {
+	text-align: center;
+	margin-top: -10px;
+	display: flex;
+	align-items: center;
+}
+
+.navbar .links {
+	flex-grow: 1;
+}
+
+.navbar .links a {
+	display: block;
+	text-align: left;
+	padding: 10px 10px 10px 20px;
+	text-decoration: none;
+	color: rgb(15, 190, 15);
+	background-color: rgb(9, 53, 9);
+}
+
+.navbar .links a span {
+	margin-right: 15px;
+}
+
+.navbar .links a span:nth-child(2) {
+	float: right;
+	color: lime;
+}
+
+.navbar .links a:hover {
+	color: lime;
+	background-color: rgb(10, 76, 10);
+	transition: background-color 0.25s ease, color 0.5s ease;
+}

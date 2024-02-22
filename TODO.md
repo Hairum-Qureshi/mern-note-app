@@ -1,0 +1,1 @@
+1. Find a way to have the registration form throw an error if the user just enters spaces in the input field.
