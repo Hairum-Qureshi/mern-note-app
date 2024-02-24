@@ -117,7 +117,6 @@ export default function useAuthentication(): ReturnTypes {
 
 	function signIn(email: string, password: string): void {
 		handleAlerts(email, password);
-
 		const userData = {
 			email,
 			password
@@ -144,7 +143,8 @@ export default function useAuthentication(): ReturnTypes {
 					}
 				})
 				.catch(error => {
-					if (error) {
+					if (error.response) {
+						console.log(error.response);
 						if (
 							error.response.data.message ==
 							"There is no account associated with this email"

@@ -1,1 +1,3 @@
 If you don't want prettier to make changes to a file, create a .prettierignore file (already made for this project) and add the file name(s) inside it!
+
+If you restart your computer, chances are you *might* get a new PORT number for your React frontend. If that's the case and you're not able to sign-in/register an account because of an Axios error, update the cors React Port number in your CORS URL on your server side code.

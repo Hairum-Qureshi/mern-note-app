@@ -21,6 +21,11 @@ export interface User {
 	profilePicture: string;
 }
 
+export interface ContextData {
+	userData: User;
+	error: string;
+}
+
 export interface AuthHandlers {
 	signUp: (req: Request, res: Response) => void;
 	signIn: (req: Request, res: Response) => void;

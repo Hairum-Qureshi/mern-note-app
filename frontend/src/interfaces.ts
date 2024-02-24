@@ -22,6 +22,10 @@ export interface ContextData {
 	error: string;
 }
 
+export interface Props {
+	children: React.ReactNode;
+}
+
 export default interface TimeState {
 	currentDate: string;
 	currentTime: string;

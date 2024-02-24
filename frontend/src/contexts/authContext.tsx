@@ -1,10 +1,10 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
-import { User, ContextData } from "../../src/interfaces";
+import { User, ContextData, Props } from "../../src/interfaces";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext<ContextData | null>(null);
 
-export const AuthProvider = (children: React.ReactNode) => {
+export const AuthProvider = ({ children }: Props) => {
 	const [userData, setUserData] = useState<User | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
@@ -18,6 +18,7 @@ export const AuthProvider = (children: React.ReactNode) => {
 					}
 				);
 				setUserData(response.data);
+				console.log("from context", response.data);
 			} catch (error) {
 				console.error("There was an error", error);
 			}
