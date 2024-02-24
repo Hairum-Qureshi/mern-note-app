@@ -1,18 +1,9 @@
 import { Request, Response } from "express";
-import User, { User_Interface } from "../models/user";
+import User from "../models/user";
+import User_Interface from "../interfaces";
 import bcrypt from "bcrypt";
 import jwt, { decode } from "jsonwebtoken";
-
-interface RequestBody {
-	email: string;
-	name?: string; // optional
-	password: string;
-}
-
-interface AuthHandlers {
-	signUp: (req: Request, res: Response) => void;
-	signIn: (req: Request, res: Response) => void;
-}
+import { RequestBody, AuthHandlers } from "../interfaces";
 
 function generateSecret(length: number): string {
 	const characters =

@@ -1,12 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-
-export interface User_Interface {
-	_id: string;
-	email: string;
-	name: string;
-	password: string;
-	profilePicture: string;
-}
+import User_Interface from "../interfaces";
 
 export interface UserModel extends User_Interface, Document {
 	_id: string;

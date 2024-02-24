@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
+import TimeState from "../../src/interfaces";
 
-interface returnTypes {
-	currentDate: string;
-	currentTime: string;
-	greeting: string;
-}
-
-export default function useCurrentTime(): returnTypes {
+export default function useCurrentTime(): TimeState {
 	const [currentDate, setCurrentDate] = useState("");
 	const [currentTime, setCurrentTime] = useState("");
 	const [greeting, setGreeting] = useState("");

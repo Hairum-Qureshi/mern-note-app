@@ -1,21 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { AlertState, ReturnTypes } from "../../src/interfaces";
 
-interface alertState {
-	emailEntered: boolean;
-	nameEntered?: boolean;
-	passwordEntered: boolean;
-}
-
-interface returnTypes {
-	signUp: (email: string, name: string, password: string) => void;
-	signIn: (email: string, password: string) => void;
-	alerts: alertState;
-	errMessage: string | undefined;
-}
-
-export default function useAuthentication(): returnTypes {
-	const [alerts, setAlerts] = useState<alertState>({
+export default function useAuthentication(): ReturnTypes {
+	const [alerts, setAlerts] = useState<AlertState>({
 		emailEntered: true,
 		nameEntered: true,
 		passwordEntered: true

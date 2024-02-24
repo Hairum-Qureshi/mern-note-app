@@ -1,47 +1,51 @@
-// import { useState, useEffect, createContext, useContext } from "react";
-// import axios from "axios";
+import { useState, useEffect, createContext, useContext } from "react";
+import axios from "axios";
+import { User, ContextData } from "../../src/interfaces";
 
-// export const AuthContext = createContext();
+export const AuthContext = createContext();
 
-// export const AuthProvider = ({ children }) => {
-// 	const [userData, setUserData] = useState(null);
-// 	const [error, setError] = useState(null);
+export const AuthProvider = (children: React.ReactNode) => {
+	const [userData, setUserData] = useState<User | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
-// 	useEffect(() => {
-// 		const getCurrUserData = async () => {
-// 			try {
-// 				const response = await axios.get("http://localhost:4000/currentUser", {
-// 					withCredentials: true
-// 				});
-// 				setUserData(response.data);
-// 			} catch (error) {
-// 				console.error("There was an error", error);
-// 			}
-// 		};
+	useEffect(() => {
+		const getCurrUserData = async () => {
+			try {
+				const response = await axios.get(
+					"http://localhost:4000/api/currentUser",
+					{
+						withCredentials: true
+					}
+				);
+				setUserData(response.data);
+			} catch (error) {
+				console.error("There was an error", error);
+			}
+		};
 
-// 		getCurrUserData();
-// 	}, []);
+		getCurrUserData();
+	}, []);
 
-// 	const logOut = async () => {
-// 		try {
-// 			await axios.get("http://localhost:4000/logOut", {
-// 				withCredentials: true
-// 			});
-// 			setUserData(null);
-// 		} catch (error) {
-// 			console.error("There was an error", error);
-// 		}
-// 	};
+	// const logOut = async () => {
+	// 	try {
+	// 		await axios.get("http://localhost:4000/logOut", {
+	// 			withCredentials: true
+	// 		});
+	// 		setUserData(null);
+	// 	} catch (error) {
+	// 		console.error("There was an error", error);
+	// 	}
+	// };
 
-// 	const value = {
-// 		userData,
-// 		error,
-// 		logOut
-// 	};
+	const value: ContextData = {
+		userData,
+		error
+		// logOut
+	};
 
-// 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-// };
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
-// export const useAuth = () => {
-// 	return useContext(AuthContext);
-// };
+export const useAuth = () => {
+	return useContext(AuthContext);
+};
