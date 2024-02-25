@@ -1,20 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import home_css from "../css/home.module.css";
 import useCurrentTime from "../hooks/useCurrentTime";
 import { tailspin } from "ldrs";
+import useAuth from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
+import NotFound from "./NotFound";
 
 tailspin.register();
 
 export default function Home() {
-	const user_name = "Hairum";
-	const user_id = 123;
+	const { userData } = useAuth();
+	const [user_name, setUsername] = useState<string>();
+	const [user_id, setUserID] = useState<string>();
+	const [profilePicture, setProfilePicture] = useState<string>();
+	const [notes, setNotes] = useState<string>();
 
-	const [notes, setNotes] = useState<string>(
-		localStorage.getItem(`notes#${user_id}`)!
-	);
+	useEffect(() => {
+		if (userData) {
+			const { name: user_name, user_id, profilePicture } = userData;
+			setUsername(user_name);
+			setUserID(user_id);
+			setProfilePicture(profilePicture);
+			setNotes(localStorage.getItem(`notes#${user_id}`)!);
+		}
+	}, [userData]);
+
 	const { currentDate, currentTime, greeting } = useCurrentTime();
-
-	return !currentDate && !currentTime && !greeting ? (
+	return !userData ? (
+		<NotFound />
+	) : !currentDate && !currentTime && !greeting ? (
 		// Default values shown
 		<div className={home_css.contentContainer}>
 			<div className={home_css.loadingContainer}>
@@ -24,7 +38,7 @@ export default function Home() {
 	) : (
 		<div className={home_css.contentContainer}>
 			<div className={home_css.subNavbar}>
-				<img src="" alt="" />
+				<img src={profilePicture} alt="User profile picture" />
 				<span>
 					{greeting}, {user_name}!
 				</span>

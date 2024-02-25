@@ -29,4 +29,5 @@ export interface ContextData {
 export interface AuthHandlers {
 	signUp: (req: Request, res: Response) => void;
 	signIn: (req: Request, res: Response) => void;
+	signOut: (req: Request, res: Response) => void;
 }

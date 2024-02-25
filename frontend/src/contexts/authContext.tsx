@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }: Props) => {
 					}
 				);
 				setUserData(response.data);
-				console.log("from context", response.data);
 			} catch (error) {
 				console.error("There was an error", error);
 			}
@@ -27,26 +26,28 @@ export const AuthProvider = ({ children }: Props) => {
 		getCurrUserData();
 	}, []);
 
-	// const logOut = async () => {
-	// 	try {
-	// 		await axios.get("http://localhost:4000/logOut", {
-	// 			withCredentials: true
-	// 		});
-	// 		setUserData(null);
-	// 	} catch (error) {
-	// 		console.error("There was an error", error);
-	// 	}
-	// };
+	const signOut = async (): Promise<void> => {
+		try {
+			const response = await axios.get("http://localhost:4000/api/signOut", {
+				withCredentials: true
+			});
+			setUserData(null);
+		} catch (error) {
+			console.error("There was an error", error);
+		}
+	};
 
 	const value: ContextData = {
 		userData,
-		error
-		// logOut
+		error,
+		signOut
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+const useAuth = () => {
 	return useContext(AuthContext);
 };
+
+export default useAuth;

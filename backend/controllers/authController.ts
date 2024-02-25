@@ -96,9 +96,19 @@ const signIn = async (req: Request, res: Response) => {
 	}
 };
 
+const signOut = (req: Request, res: Response) => {
+	const options = { maxAge: -1, httpOnly: true };
+	console.log("Signed out!");
+	res.cookie("auth-token", "", options);
+	res
+		.status(200)
+		.json({ message: "Successfully logged out!", token: req.cookies });
+};
+
 const authFunctions: AuthHandlers = {
 	signUp,
-	signIn
+	signIn,
+	signOut
 };
 
 export default authFunctions;

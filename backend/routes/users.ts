@@ -28,10 +28,10 @@ router.get("/currentUser", async (req, res) => {
 			const { name, email, _id: user_id, profilePicture } = user;
 			res.json({ name, email, user_id, profilePicture });
 		} else {
-			res.send("No data");
+			res.send(null);
 		}
 	} else {
-		res.send("No data");
+		res.send(null);
 	}
 });
 

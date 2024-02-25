@@ -2,15 +2,20 @@ import { useLocation, Link } from "react-router-dom";
 import navbar_css from "../css/navbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+	faArrowRightFromBracket,
 	faHouse,
 	faList,
 	faStickyNote,
 	faTrash
 } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "../contexts/authContext";
 
 export default function Navbar() {
 	const location = useLocation();
-	return location.pathname == "/" ||
+	const { userData, signOut } = useAuth()!;
+
+	return !userData ||
+		location.pathname == "/" ||
 		location.pathname == "/sign-up" ||
 		location.pathname == "/sign-in" ? null : (
 		<div className={navbar_css.navbar}>
@@ -22,6 +27,16 @@ export default function Navbar() {
 					</span>
 					Home
 				</Link>
+				{userData && userData.user_id ? (
+					<Link to="/" onClick={signOut}>
+						<span>
+							<FontAwesomeIcon icon={faArrowRightFromBracket} />
+						</span>
+						Sign Out
+					</Link>
+				) : (
+					""
+				)}
 				<Link to="/notes">
 					<span>
 						<FontAwesomeIcon icon={faStickyNote} />

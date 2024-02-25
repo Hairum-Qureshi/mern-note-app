@@ -20,6 +20,7 @@ export interface User {
 export interface ContextData {
 	userData: User;
 	error: string;
+	signOut: () => Promise<void>;
 }
 
 export interface Props {
