@@ -3,7 +3,6 @@ import home_css from "../css/home.module.css";
 import useCurrentTime from "../hooks/useCurrentTime";
 import { tailspin } from "ldrs";
 import useAuth from "../contexts/authContext";
-import { useNavigate } from "react-router-dom";
 import NotFound from "./NotFound";
 
 tailspin.register();

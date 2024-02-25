@@ -8,6 +8,14 @@ export default interface User_Interface {
 	profilePicture: string;
 }
 
+export default interface Note_Interface {
+	_id: string;
+	content: string;
+	datePosted: string;
+	timeEdited: string;
+	author: string;
+}
+
 export interface RequestBody {
 	email: string;
 	name?: string; // optional

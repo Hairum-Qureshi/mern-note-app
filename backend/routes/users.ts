@@ -1,9 +1,9 @@
 import express from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-// import authFunctions from "../controllers/authController";
-const router = express.Router();
 import User from "../models/user";
 import User_Interface from "../interfaces";
+
+const router = express.Router();
 
 async function findUser(user_id: string): Promise<User_Interface | null> {
 	try {

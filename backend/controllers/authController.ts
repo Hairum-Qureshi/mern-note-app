@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import User_Interface from "../interfaces";
 import bcrypt from "bcrypt";
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { RequestBody, AuthHandlers } from "../interfaces";
 
 function generateSecret(length: number): string {
@@ -98,7 +98,6 @@ const signIn = async (req: Request, res: Response) => {
 
 const signOut = (req: Request, res: Response) => {
 	const options = { maxAge: -1, httpOnly: true };
-	console.log("Signed out!");
 	res.cookie("auth-token", "", options);
 	res
 		.status(200)

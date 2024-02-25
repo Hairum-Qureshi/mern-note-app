@@ -27,16 +27,6 @@ export default function Navbar() {
 					</span>
 					Home
 				</Link>
-				{userData && userData.user_id ? (
-					<Link to="/" onClick={signOut}>
-						<span>
-							<FontAwesomeIcon icon={faArrowRightFromBracket} />
-						</span>
-						Sign Out
-					</Link>
-				) : (
-					""
-				)}
 				<Link to="/notes">
 					<span>
 						<FontAwesomeIcon icon={faStickyNote} />
@@ -56,6 +46,16 @@ export default function Navbar() {
 					</span>
 					Trash
 				</Link>
+				{userData && userData.user_id ? (
+					<Link to="/" onClick={signOut}>
+						<span>
+							<FontAwesomeIcon icon={faArrowRightFromBracket} />
+						</span>
+						Sign Out
+					</Link>
+				) : (
+					""
+				)}
 			</div>
 		</div>
 	);
