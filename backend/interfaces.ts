@@ -6,14 +6,25 @@ export default interface User_Interface {
 	name: string;
 	password: string;
 	profilePicture: string;
+	notesCount: number;
 }
 
 export default interface Note_Interface {
 	_id: string;
 	content: string;
-	datePosted: string;
+	dateCreated: string;
 	timeEdited: string;
+	user_id: string;
 	author: string;
+}
+
+export interface Notebook_Interface {
+	_id: string;
+	notebookCount: number;
+	author: string;
+	dateCreated: string;
+	notebookName: string;
+	notes: Note_Interface;
 }
 
 export interface RequestBody {

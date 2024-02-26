@@ -158,3 +158,16 @@
 	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
 		"Lucida Sans", Arial, sans-serif;
 }
+
+.contentContainer .workspace .notesContainer_left .manageNotesContainer {
+	padding: 10px;
+	margin: 10px;
+}
+
+.contentContainer .workspace .notesContainer_left .manageNotesContainer {
+	text-align: center;
+}
+
+.contentContainer .workspace .notesContainer_left .manageNotesContainer h3 {
+	background: none;
+}

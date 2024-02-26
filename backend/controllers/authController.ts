@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user";
 import User_Interface from "../interfaces";
+import Notebook from "../models/notebook";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { RequestBody, AuthHandlers } from "../interfaces";
@@ -62,7 +63,17 @@ const signUp = async (req: Request, res: Response) => {
 			email,
 			password: hashedPassword
 		});
+
+		const newNotebook = await Notebook.create({
+			author: name,
+			dateCreated: new Date().toLocaleDateString("en-US"),
+			user_id: newUser._id,
+			timeEdited: "N/A"
+		});
+
 		newUser.save();
+		newNotebook.save();
+
 		const token: string = createToken(newUser._id);
 		res.cookie("auth-token", token, {
 			httpOnly: true,

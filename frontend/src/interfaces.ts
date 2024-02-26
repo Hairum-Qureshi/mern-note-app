@@ -15,12 +15,33 @@ export interface User {
 	name: string;
 	email: string;
 	user_id: string;
+	profilePicture?: string;
+	notesCount?: number;
+}
+
+interface Note {
+	_id: string;
+	content: string;
+	dateCreated: string;
+	timeEdited: string;
+	user_id: string;
+	author: string;
+}
+
+export interface Notebook {
+	_id: string;
+	notebookCount: number;
+	author: string;
+	dateCreated: string;
+	notebookName: string;
+	notes: Note;
 }
 
 export interface ContextData {
 	userData: User;
 	error: string;
 	signOut: () => Promise<void>;
+	notebookData: Notebook;
 }
 
 export interface Props {

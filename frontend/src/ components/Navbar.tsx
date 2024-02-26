@@ -3,6 +3,7 @@ import navbar_css from "../css/navbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faArrowRightFromBracket,
+	faBook,
 	faHouse,
 	faList,
 	faStickyNote,
@@ -32,6 +33,12 @@ export default function Navbar() {
 						<FontAwesomeIcon icon={faStickyNote} />
 					</span>
 					Notes
+				</Link>
+				<Link to={`/notebooks/${userData.user_id}`}>
+					<span>
+						<FontAwesomeIcon icon={faBook} />
+					</span>
+					Notebooks
 				</Link>
 				<Link to="/tasks">
 					<span>

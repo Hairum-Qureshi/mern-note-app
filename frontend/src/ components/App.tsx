@@ -6,6 +6,7 @@ import SignUp from "./SignUp";
 import Landing from "./Landing";
 import SignIn from "./SignIn";
 import Navbar from "./Navbar";
+import Notebook from "./UserNotebooks";
 import { AuthProvider } from "../contexts/authContext";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
 				<Routes>
 					<Route path="/" element={<Landing />} />
 					<Route path="/home" element={<Home />} />
+					<Route path="/notebooks/:user_id" element={<Notebook />} />
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="*" element={<NotFound />} />

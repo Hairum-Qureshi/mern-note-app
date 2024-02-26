@@ -1,23 +1,24 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
-import { User, ContextData, Props } from "../../src/interfaces";
+import { User, ContextData, Props, Notebook } from "../../src/interfaces";
 
 export const AuthContext = createContext<ContextData | null>(null);
 
 export const AuthProvider = ({ children }: Props) => {
 	const [userData, setUserData] = useState<User | null>(null);
+	const [notebookData, setNotebookData] = useState<Notebook | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const getCurrUserData = async () => {
 			try {
-				const response = await axios.get(
+				const userDataResponse = await axios.get(
 					"http://localhost:4000/api/currentUser",
 					{
 						withCredentials: true
 					}
 				);
-				setUserData(response.data);
+				setUserData(userDataResponse.data);
 			} catch (error) {
 				console.error("There was an error", error);
 			}
@@ -26,9 +27,24 @@ export const AuthProvider = ({ children }: Props) => {
 		getCurrUserData();
 	}, []);
 
+	useEffect(() => {
+		async function getCurrentUserNotebooks() {
+			if (userData) {
+				const notebookDataResponse = await axios.get(
+					`http://localhost:4000/api/currentUser/notebooks/${userData.user_id}`,
+					{
+						withCredentials: true
+					}
+				);
+				setNotebookData(notebookDataResponse.data);
+			}
+		}
+		getCurrentUserNotebooks();
+	}, [userData]);
+
 	const signOut = async (): Promise<void> => {
 		try {
-			const response = await axios.get("http://localhost:4000/api/signOut", {
+			await axios.get("http://localhost:4000/api/signOut", {
 				withCredentials: true
 			});
 			setUserData(null);
@@ -40,7 +56,8 @@ export const AuthProvider = ({ children }: Props) => {
 	const value: ContextData = {
 		userData,
 		error,
-		signOut
+		signOut,
+		notebookData
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
