@@ -7,6 +7,7 @@ export default interface User_Interface {
 	password: string;
 	profilePicture: string;
 	notesCount: number;
+	notebooksCount: number;
 }
 
 export default interface Note_Interface {
@@ -33,11 +34,8 @@ export interface RequestBody {
 	password: string;
 }
 
-export interface User {
-	name: string;
-	email: string;
+export interface User extends User_Interface {
 	user_id: string;
-	profilePicture: string;
 }
 
 export interface ContextData {

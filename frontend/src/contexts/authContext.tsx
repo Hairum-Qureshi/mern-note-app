@@ -6,7 +6,7 @@ export const AuthContext = createContext<ContextData | null>(null);
 
 export const AuthProvider = ({ children }: Props) => {
 	const [userData, setUserData] = useState<User | null>(null);
-	const [notebookData, setNotebookData] = useState<Notebook | null>(null);
+	const [notebookData, setNotebookData] = useState<Notebook[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {

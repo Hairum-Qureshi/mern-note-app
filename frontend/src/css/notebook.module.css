@@ -1,0 +1,42 @@
+.tableContainer {
+	width: 85%;
+	box-sizing: border-box;
+	color: white;
+	float: right;
+	/* border: 2px solid white; */
+	margin: 0;
+	background-color: rgb(2, 34, 5);
+	padding: 0;
+}
+
+.tableContainer h2 {
+	margin: 20px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 15px;
+	max-width: calc(100% - 25px);
+}
+
+th,
+td {
+	padding: 15px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+th,
+td span {
+	margin-right: 10px;
+}
+
+td span:nth-child(2) {
+	margin-left: 10px;
+}
+
+th,
+td span:hover {
+	cursor: pointer;
+}

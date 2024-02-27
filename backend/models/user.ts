@@ -27,6 +27,10 @@ const UserSchema: Schema = new Schema({
 	notesCount: {
 		type: Number,
 		default: 0
+	},
+	notebooksCount: {
+		type: Number,
+		default: 1
 	}
 });
 

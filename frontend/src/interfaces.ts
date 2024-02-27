@@ -15,6 +15,7 @@ export interface User {
 	name: string;
 	email: string;
 	user_id: string;
+	notebooksCount: number;
 	profilePicture?: string;
 	notesCount?: number;
 }
@@ -30,9 +31,9 @@ interface Note {
 
 export interface Notebook {
 	_id: string;
-	notebookCount: number;
 	author: string;
 	dateCreated: string;
+	timeEdited: string;
 	notebookName: string;
 	notes: Note;
 }
@@ -41,7 +42,7 @@ export interface ContextData {
 	userData: User;
 	error: string;
 	signOut: () => Promise<void>;
-	notebookData: Notebook;
+	notebookData: Notebook[];
 }
 
 export interface Props {

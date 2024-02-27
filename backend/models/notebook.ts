@@ -6,10 +6,6 @@ export interface NotebookModel extends Notebook_Interface, Document {
 }
 
 const NotebookSchema: Schema = new Schema({
-	notebooksCount: {
-		type: Number,
-		default: 1
-	},
 	author: {
 		type: String,
 		required: true,

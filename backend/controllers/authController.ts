@@ -68,7 +68,7 @@ const signUp = async (req: Request, res: Response) => {
 			author: name,
 			dateCreated: new Date().toLocaleDateString("en-US"),
 			user_id: newUser._id,
-			timeEdited: "N/A"
+			timeEdited: "---"
 		});
 
 		newUser.save();

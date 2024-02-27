@@ -28,8 +28,22 @@ router.get("/currentUser", async (req, res) => {
 	if (decodedToken) {
 		const user: User_Interface | null = await findUser(decodedToken.user_id);
 		if (user) {
-			const { name, email, _id: user_id, profilePicture, notesCount } = user;
-			res.json({ name, email, user_id, profilePicture, notesCount });
+			const {
+				name,
+				email,
+				_id: user_id,
+				profilePicture,
+				notesCount,
+				notebooksCount
+			} = user;
+			res.json({
+				name,
+				email,
+				user_id,
+				profilePicture,
+				notesCount,
+				notebooksCount
+			});
 		} else {
 			res.send(null);
 		}
@@ -43,7 +57,7 @@ router.get("/currentUser/notebooks/:user_id", async (req, res) => {
 	const { user_id } = req.params;
 	const user: User_Interface | null = await findUser(user_id);
 	if (user) {
-		const { name, email, _id: user_id, profilePicture, notesCount } = user;
+		const { name } = user;
 		Notebook.find({ author: name }) // Assuming the field in Notebook model is "author". This line queries the Notebook model to find all notebooks where the author field matches the name of the user.
 			.populate("_id")
 			.then(notebooks => {
