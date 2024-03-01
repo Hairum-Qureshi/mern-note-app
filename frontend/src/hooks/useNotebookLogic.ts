@@ -21,7 +21,7 @@ export default function useNotebookLogic(): ModalProperties {
 
 	function updateName(newName: string, notebookID: string): void {
 		axios
-			.put(
+			.patch(
 				"http://localhost:4000/api/notebook/update",
 				{
 					notebookName: newName,

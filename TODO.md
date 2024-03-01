@@ -5,3 +5,4 @@
 [] Set up Google Authentication!
 [] In the notebook page that displays all the user's notebooks, add a hover affect to the trash and edit button icons
 [] Fix bug when user signs out (see server terminal)
+[] For the notebook page, add the ability to truncate the notebook names if they're too long
