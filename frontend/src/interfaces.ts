@@ -50,8 +50,16 @@ export interface Props {
 	children: React.ReactNode;
 }
 
-export default interface TimeState {
+export interface TimeState {
 	currentDate: string;
 	currentTime: string;
 	greeting: string;
+}
+
+export interface ModalProps {
+	toggleModalState: () => void;
+}
+
+export interface ModalProperties {
+	confirmName: (newName: string, toggleModalState: () => void) => void;
 }
