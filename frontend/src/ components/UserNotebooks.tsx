@@ -16,6 +16,7 @@ export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
 	const [notebooks, setNotebooks] = useState<Notebook[]>();
 	const [modalStatus, setModalStatus] = useState(false);
+	const [notebookID, setNotebookID] = useState<string>();
 
 	const { user_id } = useParams();
 
@@ -31,17 +32,20 @@ export default function UserNotebooks() {
 		}
 	}
 
-	function editNotebook() {
-		setModalStatus(!modalStatus);
-	}
-
 	function closeModal() {
 		setModalStatus(false);
 	}
 
+	function editNotebook(notebookID: string) {
+		setModalStatus(!modalStatus);
+		setNotebookID(notebookID);
+	}
+
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
-			{modalStatus && <Modal toggleModalState={closeModal} />}
+			{modalStatus && (
+				<Modal toggleModalState={closeModal} notebookID={notebookID} />
+			)}
 			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
 			<table>
 				<thead>
@@ -74,7 +78,7 @@ export default function UserNotebooks() {
 										<FontAwesomeIcon icon={faTrash} />
 									</span>
 									|
-									<span onClick={editNotebook}>
+									<span onClick={() => editNotebook(data._id)}>
 										<FontAwesomeIcon icon={faPenToSquare} />
 									</span>
 								</td>

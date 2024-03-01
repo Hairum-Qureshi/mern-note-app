@@ -16,6 +16,7 @@ export default function Navbar() {
 	const { userData, signOut } = useAuth()!;
 
 	return !userData ||
+		userData.message === "user not found" ||
 		location.pathname == "/" ||
 		location.pathname == "/sign-up" ||
 		location.pathname == "/sign-in" ? null : (

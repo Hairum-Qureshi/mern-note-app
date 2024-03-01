@@ -4,3 +4,4 @@
     -> Then from 6 AM to 11 AM, it'll say "Good Morning!"
 [] Set up Google Authentication!
 [] In the notebook page that displays all the user's notebooks, add a hover affect to the trash and edit button icons
+[] Fix bug when user signs out (see server terminal)

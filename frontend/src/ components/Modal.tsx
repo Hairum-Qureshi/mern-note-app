@@ -1,12 +1,11 @@
 import modal_css from "../css/modal.module.css";
-import { useState } from "react";
-import useModalLogic from "../hooks/useNotebookLogic";
+import { useEffect, useState } from "react";
+import useNotebookLogic from "../hooks/useNotebookLogic";
 import { ModalProps } from "../interfaces";
 
-export default function Modal({ toggleModalState }: ModalProps) {
+export default function Modal({ toggleModalState, notebookID }: ModalProps) {
 	const [newName, setNewName] = useState("");
-
-	const { confirmName } = useModalLogic();
+	const { validateName } = useNotebookLogic();
 
 	return (
 		<div id={modal_css.myModal} className={modal_css.modal}>
@@ -21,7 +20,9 @@ export default function Modal({ toggleModalState }: ModalProps) {
 						value={newName}
 						onChange={event => setNewName(event.target.value)}
 					/>
-					<button onClick={() => confirmName(newName, toggleModalState)}>
+					<button
+						onClick={() => validateName(newName, toggleModalState, notebookID)}
+					>
 						Change Name
 					</button>
 				</div>

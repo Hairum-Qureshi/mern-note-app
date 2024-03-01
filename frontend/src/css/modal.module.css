@@ -17,9 +17,8 @@
 	background-color: #0c4214;
 	margin: auto;
 	padding: 20px;
-	border: 1px solid #888;
 	width: 50%;
-	border: 2px solid lime;
+	border: 1px solid lime;
 	border-radius: 5px;
 }
 
@@ -54,3 +53,27 @@
 	border-radius: 5px;
 	margin: 10px;
 }
+
+button {
+	width: 30%;
+	padding: 10px;
+	font-size: 15px;
+	outline: none;
+	border-radius: 10px;
+	background-color: #068715;
+	border: 2px solid rgb(1, 51, 1);
+	color: white;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	margin: 10px 0 -5px 0;
+}
+
+button:hover {
+	background-color: rgb(3, 59, 11);
+	cursor: pointer;
+	border: 2px solid #068715;
+}
+
+/* button:active {
+	background-color: rgb(3, 119, 19);
+} */
