@@ -17,8 +17,14 @@ export default function UserNotebooks() {
 	const [notebooks, setNotebooks] = useState<Notebook[]>();
 	const [modalStatus, setModalStatus] = useState(false);
 	const [notebookID, setNotebookID] = useState<string>();
+	const [notebookName, setNotebookName] = useState<string>();
 
 	const { user_id } = useParams();
+
+	// const notebookDataCOPY = [...notebookData];
+	// const x = copy.map((x: Notebook) => {
+	// 	x._id;
+	// })
 
 	useEffect(() => {
 		if (notebookData) {
@@ -36,15 +42,20 @@ export default function UserNotebooks() {
 		setModalStatus(false);
 	}
 
-	function editNotebook(notebookID: string) {
+	function editNotebook(notebookID: string, noteBookName: string) {
 		setModalStatus(!modalStatus);
 		setNotebookID(notebookID);
+		setNotebookName(noteBookName);
 	}
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
 			{modalStatus && (
-				<Modal toggleModalState={closeModal} notebookID={notebookID} />
+				<Modal
+					toggleModalState={closeModal}
+					notebookID={notebookID}
+					notebookName={notebookName}
+				/>
 			)}
 			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
 			<table>
@@ -59,8 +70,8 @@ export default function UserNotebooks() {
 				</thead>
 				<tbody>
 					{notebookData &&
-						notebookData.map((data: Notebook, index: number) => (
-							<tr key={index}>
+						notebookData.map((data: Notebook) => (
+							<tr key={data._id}>
 								<td>
 									<span>
 										<FontAwesomeIcon icon={faBook} />
@@ -78,7 +89,9 @@ export default function UserNotebooks() {
 										<FontAwesomeIcon icon={faTrash} />
 									</span>
 									|
-									<span onClick={() => editNotebook(data._id)}>
+									<span
+										onClick={() => editNotebook(data._id, data.notebookName)}
+									>
 										<FontAwesomeIcon icon={faPenToSquare} />
 									</span>
 								</td>

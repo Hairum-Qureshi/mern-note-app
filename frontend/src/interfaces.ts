@@ -59,11 +59,12 @@ export interface TimeState {
 export interface ModalProps {
 	toggleModalState: () => void;
 	notebookID: string | undefined;
+	notebookName: string | undefined;
 }
 
 export interface ModalProperties {
 	validateName: (
-		newName: string,
+		newName: string | undefined,
 		toggleModalState: () => void,
 		notebookID: string | undefined
 	) => void;

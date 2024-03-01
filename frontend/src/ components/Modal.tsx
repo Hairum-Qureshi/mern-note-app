@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 import useNotebookLogic from "../hooks/useNotebookLogic";
 import { ModalProps } from "../interfaces";
 
-export default function Modal({ toggleModalState, notebookID }: ModalProps) {
-	const [newName, setNewName] = useState("");
+export default function Modal({
+	toggleModalState,
+	notebookID,
+	notebookName
+}: ModalProps) {
+	const [newName, setNewName] = useState(notebookName);
 	const { validateName } = useNotebookLogic();
 
 	return (

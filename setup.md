@@ -24,8 +24,4 @@
 
 -> Run `cd frontend` then `npm run dev`
 
-## MongoDB database login:
-
-Email: hokiri5402@oprevolt.com 
-Password: citybuilder22
 
