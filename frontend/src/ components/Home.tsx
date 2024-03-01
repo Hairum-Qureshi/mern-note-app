@@ -21,7 +21,7 @@ export default function Home() {
 	}, [userData]);
 
 	const { currentDate, currentTime, greeting } = useCurrentTime();
-	return !user ? (
+	return !user || user.message === "user not found" ? (
 		<NotFound />
 	) : !currentDate && !currentTime && !greeting ? (
 		// Default values shown

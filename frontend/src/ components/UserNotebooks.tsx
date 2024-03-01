@@ -10,10 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
+import Modal from "./Modal";
 
 export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
 	const [notebooks, setNotebooks] = useState<Notebook[]>();
+	const [modalStatus, setModalStatus] = useState(false);
 
 	const { user_id } = useParams();
 
@@ -30,11 +32,16 @@ export default function UserNotebooks() {
 	}
 
 	function editNotebook() {
-		alert("Editing notebook...");
+		setModalStatus(!modalStatus);
+	}
+
+	function closeModal() {
+		setModalStatus(false);
 	}
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
+			{modalStatus && <Modal toggleModalState={closeModal} />}
 			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
 			<table>
 				<thead>
