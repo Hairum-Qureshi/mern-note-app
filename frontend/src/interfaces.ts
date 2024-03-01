@@ -18,7 +18,7 @@ export interface User {
 	notebooksCount: number;
 	profilePicture?: string;
 	notesCount?: number;
-	message?: string;
+	message: string;
 }
 
 interface Note {

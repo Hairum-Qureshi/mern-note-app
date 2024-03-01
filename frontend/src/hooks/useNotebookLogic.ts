@@ -1,4 +1,5 @@
 import { ModalProperties } from "../interfaces";
+import axios from "axios";
 
 export default function useModalLogic(): ModalProperties {
 	function confirmName(newName: string, toggleModalState: () => void) {

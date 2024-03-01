@@ -1,6 +1,6 @@
 import modal_css from "../css/modal.module.css";
 import { useState } from "react";
-import useModalLogic from "../hooks/useModalLogic";
+import useModalLogic from "../hooks/useNotebookLogic";
 import { ModalProps } from "../interfaces";
 
 export default function Modal({ toggleModalState }: ModalProps) {
