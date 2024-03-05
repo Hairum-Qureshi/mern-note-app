@@ -60,9 +60,10 @@ export interface ModalProps {
 	toggleModalState: () => void;
 	notebookID: string | undefined;
 	notebookName: string | undefined;
+	getNotebookName: (newName: string | undefined) => void;
 }
 
-export interface ModalProperties {
+export interface NotebookLogicProperties {
 	validateName: (
 		newName: string | undefined,
 		toggleModalState: () => void,

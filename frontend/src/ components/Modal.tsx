@@ -6,10 +6,12 @@ import { ModalProps } from "../interfaces";
 export default function Modal({
 	toggleModalState,
 	notebookID,
-	notebookName
+	notebookName,
+	getNotebookName
 }: ModalProps) {
 	const [newName, setNewName] = useState(notebookName);
 	const { validateName } = useNotebookLogic();
+	getNotebookName(newName);
 
 	return (
 		<div id={modal_css.myModal} className={modal_css.modal}>
