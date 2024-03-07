@@ -18,7 +18,7 @@ export default function UserNotebooks() {
 	const [modalStatus, setModalStatus] = useState(false);
 	const [notebookID, setNotebookID] = useState<string>();
 	const [notebookName, setNotebookName] = useState<string>();
-	const [newNotebookName, setNewNotebookName] = useState<string>();
+	const [newNotebookName, setNewNotebookName] = useState<string | null>(null);
 	const { user_id } = useParams();
 
 	useEffect(() => {
@@ -43,9 +43,12 @@ export default function UserNotebooks() {
 		setNotebookName(noteBookName);
 	}
 
-	function getNotebookName(newName: string | undefined) {
+	function getNotebookName(newName: string | null) {
 		setNewNotebookName(newName);
+		sessionStorage.setItem("New notebook name", newName!);
 	}
+
+	const savedNotebookName = sessionStorage.getItem("New notebook name");
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
@@ -53,7 +56,7 @@ export default function UserNotebooks() {
 				<Modal
 					toggleModalState={closeModal}
 					notebookID={notebookID}
-					notebookName={newNotebookName ? newNotebookName : notebookName}
+					notebookName={savedNotebookName ? savedNotebookName : notebookName}
 					getNotebookName={getNotebookName}
 				/>
 			)}
@@ -77,7 +80,10 @@ export default function UserNotebooks() {
 										<FontAwesomeIcon icon={faBook} />
 									</span>
 									<Link to={`/user/${userData.user_id}/notebook/${data._id}`}>
-										{newNotebookName ? newNotebookName : data.notebookName}
+										{data.notebookName === savedNotebookName ||
+										savedNotebookName
+											? savedNotebookName
+											: data.notebookName}
 									</Link>
 								</td>
 

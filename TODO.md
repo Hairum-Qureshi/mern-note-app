@@ -16,3 +16,5 @@
     -> Check out: [this question solution](https://stackoverflow.com/questions/66261207/how-to-add-edit-button-and-function-in-react-js)
 
 [] Add a 'create new notebook' button on the notebook page
+
+[] Resolve issue where if you update the notebook name, it does show the new name, however, if you go from one page to another in the application, it'll show the previous name and not the one you just set; you have to refresh the page in order to "finalize" the new name because then it'll cause the variable "newName" to go undefined and use the name from the database.
