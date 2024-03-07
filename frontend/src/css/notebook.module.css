@@ -11,6 +11,13 @@
 
 .tableContainer h2 {
 	margin: 20px;
+	display: inline-block;
+}
+
+.addNotebookBtn {
+	float: right;
+	width: 10%;
+	margin: 15px 10px 0 0;
 }
 
 table {

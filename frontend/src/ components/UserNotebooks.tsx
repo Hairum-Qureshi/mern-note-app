@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faBook,
 	faPenToSquare,
+	faPlus,
 	faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
@@ -61,6 +62,11 @@ export default function UserNotebooks() {
 				/>
 			)}
 			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
+			<span>
+				<button className={notebook_css.addNotebookBtn}>
+					<FontAwesomeIcon icon={faPlus} /> Notebook
+				</button>
+			</span>
 			<table>
 				<thead>
 					<tr>
