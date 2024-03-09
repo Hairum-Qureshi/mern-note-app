@@ -63,11 +63,10 @@ export default function UserNotebooks() {
 				})
 			);
 			setNotebookDataCopy([...updatedNotebookData]);
-			// sessionStorage.setItem("New notebook name", newNotebookName);
 		}
 	}, [newNotebookName, notebookData]);
 
-	const savedNotebookName = sessionStorage.getItem("New notebook name");
+	// const savedNotebookName = sessionStorage.getItem("New notebook name");
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
