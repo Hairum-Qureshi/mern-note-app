@@ -13,7 +13,9 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 	) {
 		if (newName.trim()) {
 			toggleModalState();
-			modalType ? updateName(newName.trim(), notebookID) : createNotebook();
+			modalType
+				? updateName(newName.trim(), notebookID)
+				: createNotebook(newName);
 		} else {
 			alert("Please input something!");
 		}
@@ -33,8 +35,8 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 		);
 	}
 
-	function createNotebook() {
-		console.log("Create notebook function called!");
+	function createNotebook(newName: string) {
+		console.log("from create notebook function", newName);
 	}
 
 	return { validateName };

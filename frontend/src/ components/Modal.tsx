@@ -11,6 +11,7 @@ export default function Modal({
 	textToDisplay
 }: ModalProps) {
 	const [newName, setNewName] = useState(notebookName);
+	const [createNotebookName, setCreateNotebookName] = useState<string>("");
 	const { validateName } = useNotebookLogic();
 	const [modalType, setModalType] = useState<boolean>(
 		textToDisplay === "Rename your notebook:"
@@ -27,12 +28,21 @@ export default function Modal({
 					<label>{textToDisplay}</label>
 					<input
 						type="text"
-						value={modalType ? newName : ""}
-						onChange={event => setNewName(event.target.value)}
+						value={modalType ? newName : createNotebookName}
+						onChange={event =>
+							modalType
+								? setNewName(event.target.value)
+								: setCreateNotebookName(event.target.value)
+						}
 					/>
 					<button
 						onClick={() =>
-							validateName(newName, toggleModalState, notebookID, modalType)
+							validateName(
+								modalType ? newName : createNotebookName,
+								toggleModalState,
+								notebookID,
+								modalType
+							)
 						}
 					>
 						{modalType ? "Change Name" : "Create Notebook"}

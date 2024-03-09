@@ -73,6 +73,7 @@ export default function UserNotebooks() {
 					onClick={() => {
 						setModalText("New notebook name:");
 						setModalStatus(!modalStatus);
+						setNotebookName(notebookName);
 					}}
 				>
 					<FontAwesomeIcon icon={faPlus} /> Notebook
