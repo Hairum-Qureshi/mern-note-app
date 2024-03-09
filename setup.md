@@ -24,4 +24,4 @@
 
 -> Run `cd frontend` then `npm run dev`
 
-
+**You will need to create a new .env file containing the MongoDB URI and server PORT number.**
