@@ -98,8 +98,8 @@ export default function UserNotebooks() {
 										<FontAwesomeIcon icon={faBook} />
 									</span>
 									<Link to={`/user/${userData.user_id}/notebook/${data._id}`}>
-										{data.notebookName === savedNotebookName ||
-										savedNotebookName
+										{data.notebookName ===
+										savedNotebookName /* || savedNotebookName */
 											? savedNotebookName
 											: data.notebookName}
 									</Link>

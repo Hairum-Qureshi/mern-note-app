@@ -20,4 +20,22 @@ router.patch("/update", async (req, res) => {
 	);
 });
 
+router.post("/create", async (req, res) => {
+	// All request URLs have a prefix of "/api/notebook" *****
+	// .trim() does not seem to be working for some reason
+	const { notebookName, user_id, username, currentDate } = req.body;
+	try {
+		const notebook = await Notebook.create({
+			author: username,
+			dateCreated: currentDate,
+			user_id,
+			notebookName
+		});
+		notebook.save();
+		res.send(notebook);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 export default router;

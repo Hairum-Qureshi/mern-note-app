@@ -15,16 +15,15 @@ const NotebookSchema: Schema = new Schema({
 		type: String
 	},
 	timeEdited: {
-		type: String
+		type: String,
+		default: "----"
 	},
 	user_id: {
-		type: String,
-		unique: true
+		type: String
 	},
 	notebookName: {
 		type: String,
-		default: "First Notebook",
-		required: true
+		default: "First Notebook"
 	}
 });
 

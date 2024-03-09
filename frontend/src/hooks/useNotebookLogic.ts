@@ -1,9 +1,11 @@
 import { NotebookLogicProperties } from "../interfaces";
 import axios from "axios";
 import useAuth from "../contexts/authContext";
+import { useState } from "react";
 
 export default function useNotebookLogic(): NotebookLogicProperties {
 	const { userData } = useAuth()!;
+	const [newNotebookData, setNewNotebookData] = useState();
 
 	function validateName(
 		newName: string,
@@ -15,7 +17,7 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 			toggleModalState();
 			modalType
 				? updateName(newName.trim(), notebookID)
-				: createNotebook(newName);
+				: createNotebook(newName.trim());
 		} else {
 			alert("Please input something!");
 		}
@@ -35,8 +37,16 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 		);
 	}
 
-	function createNotebook(newName: string) {
-		console.log("from create notebook function", newName);
+	function createNotebook(notebookName: string) {
+		axios
+			.post("http://localhost:4000/api/notebook/create", {
+				notebookName: notebookName,
+				user_id: userData.user_id,
+				username: userData.name,
+				currentDate: new Date().toLocaleDateString("en-US")
+			})
+			.then(response => console.log(response))
+			.catch(error => console.log(error));
 	}
 
 	return { validateName };
