@@ -42,17 +42,30 @@ export default function UserNotebooks() {
 	}
 
 	function editNotebook(notebookID: string, noteBookName: string) {
-		console.log(notebookID, noteBookName);
 		setModalText("Rename your notebook:");
 		setModalStatus(!modalStatus);
 		setNotebookID(notebookID);
 		setNotebookName(noteBookName);
 	}
-
 	function getNotebookName(newName: string | null) {
 		setNewNotebookName(newName);
-		sessionStorage.setItem("New notebook name", newName!);
 	}
+
+	useEffect(() => {
+		if (newNotebookName !== null) {
+			const oldName: string | undefined = notebookName;
+
+			const updatedNotebookData = notebookData.map(
+				({ notebookName, ...rest }) => ({
+					...rest,
+					notebookName:
+						oldName === notebookName ? newNotebookName : notebookName
+				})
+			);
+			setNotebookDataCopy([...updatedNotebookData]);
+			// sessionStorage.setItem("New notebook name", newNotebookName);
+		}
+	}, [newNotebookName, notebookData]);
 
 	const savedNotebookName = sessionStorage.getItem("New notebook name");
 
@@ -62,7 +75,7 @@ export default function UserNotebooks() {
 				<Modal
 					toggleModalState={closeModal}
 					notebookID={notebookID}
-					notebookName={savedNotebookName ? savedNotebookName : notebookName}
+					notebookName={notebookName}
 					getNotebookName={getNotebookName}
 					textToDisplay={modalLabelText}
 				/>
@@ -99,10 +112,7 @@ export default function UserNotebooks() {
 										<FontAwesomeIcon icon={faBook} />
 									</span>
 									<Link to={`/user/${userData.user_id}/notebook/${data._id}`}>
-										{data.notebookName ===
-										savedNotebookName /* || savedNotebookName */
-											? savedNotebookName
-											: data.notebookName}
+										{data.notebookName}
 									</Link>
 								</td>
 

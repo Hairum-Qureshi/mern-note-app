@@ -35,8 +35,8 @@ export interface Notebook {
 	author: string;
 	dateCreated: string;
 	timeEdited: string;
-	notebookName: string;
-	notes: Note;
+	notebookName: string | null;
+	notes?: Note;
 }
 
 export interface ContextData {

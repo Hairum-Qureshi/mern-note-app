@@ -45,7 +45,7 @@ router.get("/currentUser", async (req, res) => {
 				notebooksCount
 			});
 		} else {
-			res.send(null);
+			res.json({ message: "user not found" });
 		}
 	} else {
 		res.json({ message: "user not found" });

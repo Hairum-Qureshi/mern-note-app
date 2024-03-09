@@ -4,13 +4,12 @@ import useAuth from "../contexts/authContext";
 
 export default function Landing() {
 	const { userData, signOut } = useAuth()!;
-
 	return (
 		<>
 			<div className={landing_css.navbar}>
 				<h2>Easy Note</h2>
 				<ul>
-					{!userData ? (
+					{!userData || (userData && userData.message) ? (
 						<>
 							<li>
 								<Link to="/sign-up">Sign Up</Link>
