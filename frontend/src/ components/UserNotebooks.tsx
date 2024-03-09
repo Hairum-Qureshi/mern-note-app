@@ -42,6 +42,7 @@ export default function UserNotebooks() {
 	}
 
 	function editNotebook(notebookID: string, noteBookName: string) {
+		console.log(notebookID, noteBookName);
 		setModalText("Rename your notebook:");
 		setModalStatus(!modalStatus);
 		setNotebookID(notebookID);
