@@ -15,16 +15,19 @@ import Modal from "./Modal";
 
 export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
-	const [notebooks, setNotebooks] = useState<Notebook[]>();
+	// const [notebooks, setNotebooks] = useState<Notebook[]>();
 	const [modalStatus, setModalStatus] = useState(false);
 	const [notebookID, setNotebookID] = useState<string>();
 	const [notebookName, setNotebookName] = useState<string>();
 	const [newNotebookName, setNewNotebookName] = useState<string | null>(null);
 	const { user_id } = useParams();
+	const [notebookDataCopy, setNotebookDataCopy] = useState<Notebook[]>();
+	const [modalLabelText, setModalText] = useState("Rename your notebook:");
 
 	useEffect(() => {
 		if (notebookData) {
-			setNotebooks(notebookData);
+			// setNotebooks(notebookData);
+			setNotebookDataCopy([...notebookData]);
 		}
 	}, [notebookData]);
 
@@ -39,6 +42,7 @@ export default function UserNotebooks() {
 	}
 
 	function editNotebook(notebookID: string, noteBookName: string) {
+		setModalText("Rename your notebook:");
 		setModalStatus(!modalStatus);
 		setNotebookID(notebookID);
 		setNotebookName(noteBookName);
@@ -59,11 +63,18 @@ export default function UserNotebooks() {
 					notebookID={notebookID}
 					notebookName={savedNotebookName ? savedNotebookName : notebookName}
 					getNotebookName={getNotebookName}
+					textToDisplay={modalLabelText}
 				/>
 			)}
 			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
 			<span>
-				<button className={notebook_css.addNotebookBtn}>
+				<button
+					className={notebook_css.addNotebookBtn}
+					onClick={() => {
+						setModalText("New notebook name:");
+						setModalStatus(!modalStatus);
+					}}
+				>
 					<FontAwesomeIcon icon={faPlus} /> Notebook
 				</button>
 			</span>
@@ -78,8 +89,8 @@ export default function UserNotebooks() {
 					</tr>
 				</thead>
 				<tbody>
-					{notebookData &&
-						notebookData.map((data: Notebook) => (
+					{notebookDataCopy &&
+						notebookDataCopy.map((data: Notebook) => (
 							<tr key={data._id}>
 								<td>
 									<span>

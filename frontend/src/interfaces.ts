@@ -61,12 +61,14 @@ export interface ModalProps {
 	notebookID: string | undefined;
 	notebookName: string | undefined;
 	getNotebookName: (newName: string | null) => void;
+	textToDisplay: string;
 }
 
 export interface NotebookLogicProperties {
 	validateName: (
 		newName: string | undefined,
 		toggleModalState: () => void,
-		notebookID: string | undefined
+		notebookID: string | undefined,
+		modalType: boolean
 	) => void;
 }

@@ -8,11 +8,12 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 	function validateName(
 		newName: string,
 		toggleModalState: () => void,
-		notebookID: string
+		notebookID: string,
+		modalType: boolean
 	) {
 		if (newName.trim()) {
 			toggleModalState();
-			updateName(newName.trim(), notebookID);
+			modalType ? updateName(newName.trim(), notebookID) : createNotebook();
 		} else {
 			alert("Please input something!");
 		}
@@ -30,6 +31,10 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 				withCredentials: true
 			}
 		);
+	}
+
+	function createNotebook() {
+		console.log("Create notebook function called!");
 	}
 
 	return { validateName };
