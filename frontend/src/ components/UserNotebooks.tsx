@@ -26,14 +26,24 @@ export default function UserNotebooks() {
 
 	useEffect(() => {
 		if (notebookData) {
-			// setNotebooks(notebookData);
 			setNotebookDataCopy([...notebookData]);
 		}
 	}, [notebookData]);
 
-	function deleteNotebook() {
-		if (userData.notebooksCount === 1) {
+	function deleteNotebook(notebookID: string, notebookName: string | null) {
+		if (userData.notebooksCount === 1 || notebookDataCopy?.length === 1) {
 			return alert("You must have at least 1 notebook");
+		} else {
+			// Maybe have it so that the notes made in that notebook won't get deleted?
+			const confirmation = confirm(
+				`Are you sure you would like to delete the notebook "${notebookName}"? Once deleted, all notes made inside that notebook will also be deleted!`
+			);
+			if (confirmation) {
+				const filteredNotebooks = notebookDataCopy?.filter(
+					(notebook: Notebook) => notebook._id !== notebookID
+				);
+				setNotebookDataCopy(filteredNotebooks);
+			}
 		}
 	}
 
@@ -41,18 +51,19 @@ export default function UserNotebooks() {
 		setModalStatus(false);
 	}
 
-	function editNotebook(notebookID: string, noteBookName: string) {
+	function editNotebook(notebookID: string, noteBookName: string | null) {
 		setModalText("Rename your notebook:");
 		setModalStatus(!modalStatus);
 		setNotebookID(notebookID);
 		setNotebookName(noteBookName);
 	}
+
 	function getNotebookName(newName: string | null) {
 		setNewNotebookName(newName);
 	}
 
 	useEffect(() => {
-		if (newNotebookName !== null) {
+		if (newNotebookName) {
 			const index = notebookData.findIndex(obj => {
 				return obj._id === notebookID;
 			});
@@ -73,7 +84,7 @@ export default function UserNotebooks() {
 					textToDisplay={modalLabelText}
 				/>
 			)}
-			<h2>Your Notebooks ({userData && userData.notebooksCount})</h2>
+			<h2>Your Notebooks ({notebookDataCopy?.length})</h2>
 			<span>
 				<button
 					className={notebook_css.addNotebookBtn}
@@ -113,7 +124,9 @@ export default function UserNotebooks() {
 								<td>{data.timeEdited}</td>
 								<td>{data.dateCreated}</td>
 								<td>
-									<span onClick={deleteNotebook}>
+									<span
+										onClick={() => deleteNotebook(data._id, data.notebookName)}
+									>
 										<FontAwesomeIcon icon={faTrash} />
 									</span>
 									|
