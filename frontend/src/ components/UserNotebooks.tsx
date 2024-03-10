@@ -53,20 +53,14 @@ export default function UserNotebooks() {
 
 	useEffect(() => {
 		if (newNotebookName !== null) {
-			const oldName: string | undefined = notebookName;
-
-			const updatedNotebookData = notebookData.map(
-				({ notebookName, ...rest }) => ({
-					...rest,
-					notebookName:
-						oldName === notebookName ? newNotebookName : notebookName
-				})
-			);
-			setNotebookDataCopy([...updatedNotebookData]);
+			const index = notebookData.findIndex(obj => {
+				return obj._id === notebookID;
+			});
+			notebookData[index].notebookName = newNotebookName;
 		}
-	}, [newNotebookName, notebookData]);
+	}, [newNotebookName]);
 
-	// const savedNotebookName = sessionStorage.getItem("New notebook name");
+	const savedNotebookName = sessionStorage.getItem("New notebook name");
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
