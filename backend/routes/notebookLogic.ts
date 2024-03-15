@@ -1,10 +1,7 @@
 import express from "express";
-// import jwt, { JwtPayload } from "jsonwebtoken";
 import Notebook from "../models/notebook";
-import Notebook_Interface from "../interfaces";
 import User_Interface from "../interfaces";
 import User from "../models/user";
-
 const router = express.Router();
 
 async function findUser(user_id: string): Promise<User_Interface | null> {
@@ -50,11 +47,21 @@ router.post("/create", async (req, res) => {
 				}
 			);
 		}
-
-		res.send(notebook);
 	} catch (error) {
 		console.log(error);
 	}
+});
+
+router.delete("/delete-notebook/:notebook_id", async (req, res) => {
+	// decrement the notebook count also
+
+	const { notebook_id } = req.params;
+
+	await Notebook.deleteOne({
+		_id: notebook_id
+	});
+
+	res.send("Notebook successfully deleted!");
 });
 
 export default router;

@@ -1,11 +1,12 @@
-import { NotebookLogicProperties } from "../interfaces";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import useAuth from "../contexts/authContext";
-import { useState } from "react";
+import { Notebook, NotebookLogicProperties } from "../interfaces";
 
 export default function useNotebookLogic(): NotebookLogicProperties {
 	const { userData } = useAuth()!;
-	const [newNotebookData, setNewNotebookData] = useState();
+	const [notebookData, setNotebookData] = useState<Notebook | null>(null);
+	const notebookNameRef = useRef<string>();
 
 	function validateName(
 		newName: string,
@@ -14,6 +15,7 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 		modalType: boolean
 	) {
 		if (newName.trim()) {
+			notebookNameRef.current = newName.trim(); // Setting the ref
 			toggleModalState();
 			modalType
 				? updateName(newName.trim(), notebookID)
@@ -45,9 +47,8 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 				username: userData.name,
 				currentDate: new Date().toLocaleDateString("en-US")
 			})
-			.then(response => console.log(response))
 			.catch(error => console.log(error));
 	}
 
-	return { validateName };
+	return { validateName, notebookData };
 }

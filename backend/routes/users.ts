@@ -6,7 +6,7 @@ import Notebook from "../models/notebook";
 
 const router = express.Router();
 
-async function findUser(user_id: string): Promise<User_Interface | null> {
+async function getUser(user_id: string): Promise<User_Interface | null> {
 	try {
 		if (user_id) {
 			const user = await User.findOne({ _id: user_id });
@@ -25,7 +25,7 @@ router.get("/currentUser", async (req, res) => {
 	const cookieToken = req.cookies;
 	const decodedToken = jwt.decode(cookieToken["auth-token"]) as JwtPayload;
 	if (decodedToken) {
-		const user: User_Interface | null = await findUser(decodedToken.user_id);
+		const user: User_Interface | null = await getUser(decodedToken.user_id);
 		if (user) {
 			const {
 				name,
@@ -54,7 +54,7 @@ router.get("/currentUser", async (req, res) => {
 router.get("/currentUser/notebooks/:user_id", async (req, res) => {
 	// Don't forget to add the route /api before!
 	const { user_id } = req.params;
-	const user: User_Interface | null = await findUser(user_id);
+	const user: User_Interface | null = await getUser(user_id);
 	if (user) {
 		const { name } = user;
 		Notebook.find({ author: name }) // Assuming the field in Notebook model is "author". This line queries the Notebook model to find all notebooks where the author field matches the name of the user.

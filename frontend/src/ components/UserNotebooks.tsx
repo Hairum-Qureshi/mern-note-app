@@ -12,6 +12,8 @@ import {
 import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import Modal from "./Modal";
+import axios from "axios";
+import useNotebookLogic from "../hooks/useNotebookLogic";
 
 export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
@@ -23,6 +25,7 @@ export default function UserNotebooks() {
 	const { user_id } = useParams();
 	const [notebookDataCopy, setNotebookDataCopy] = useState<Notebook[]>();
 	const [modalLabelText, setModalText] = useState("Rename your notebook:");
+	// const { } = useNotebookLogic();
 
 	useEffect(() => {
 		if (notebookData) {
@@ -43,6 +46,14 @@ export default function UserNotebooks() {
 					(notebook: Notebook) => notebook._id !== notebookID
 				);
 				setNotebookDataCopy(filteredNotebooks);
+
+				axios
+					.delete(
+						`http://localhost:4000/api/notebook/delete-notebook/${notebookID}`
+					)
+					.then(response => {
+						console.log(response.data);
+					});
 			}
 		}
 	}
@@ -64,12 +75,12 @@ export default function UserNotebooks() {
 
 	useEffect(() => {
 		if (newNotebookName) {
-			const index = notebookData.findIndex(obj => {
-				return obj._id === notebookID;
+			const index = notebookData.findIndex(notebookObj => {
+				return notebookObj._id === notebookID;
 			});
 			notebookData[index].notebookName = newNotebookName;
 		}
-	}, [newNotebookName]);
+	}, [newNotebookName]); // <-- dependency needed - do not remove
 
 	const savedNotebookName = sessionStorage.getItem("New notebook name");
 

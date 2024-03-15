@@ -71,4 +71,5 @@ export interface NotebookLogicProperties {
 		notebookID: string | undefined,
 		modalType: boolean
 	) => void;
+	notebookData: Notebook | null;
 }
