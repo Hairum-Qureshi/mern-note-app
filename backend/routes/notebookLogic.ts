@@ -52,14 +52,27 @@ router.post("/create", async (req, res) => {
 	}
 });
 
-router.delete("/delete-notebook/:notebook_id", async (req, res) => {
+router.delete("/delete-notebook/:notebook_id/:user_id", async (req, res) => {
 	// decrement the notebook count also
 
-	const { notebook_id } = req.params;
+	const { notebook_id, user_id } = req.params;
 
 	await Notebook.deleteOne({
 		_id: notebook_id
 	});
+
+	const user: User_Interface | null = await findUser(user_id);
+	if (user) {
+		const notebookCount: number = user.notebooksCount;
+		await User.findByIdAndUpdate(
+			{
+				_id: user_id
+			},
+			{
+				notebooksCount: notebookCount - 1
+			}
+		);
+	}
 
 	res.send("Notebook successfully deleted!");
 });

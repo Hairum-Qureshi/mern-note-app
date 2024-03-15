@@ -41,7 +41,7 @@ export default function UserNotebooks() {
 			const confirmation = confirm(
 				`Are you sure you would like to delete the notebook "${notebookName}"? Once deleted, all notes made inside that notebook will also be deleted!`
 			);
-			if (confirmation) {
+			if (confirmation && userData && userData.user_id) {
 				const filteredNotebooks = notebookDataCopy?.filter(
 					(notebook: Notebook) => notebook._id !== notebookID
 				);
@@ -49,7 +49,7 @@ export default function UserNotebooks() {
 
 				axios
 					.delete(
-						`http://localhost:4000/api/notebook/delete-notebook/${notebookID}`
+						`http://localhost:4000/api/notebook/delete-notebook/${notebookID}/${userData.user_id}`
 					)
 					.then(response => {
 						console.log(response.data);
