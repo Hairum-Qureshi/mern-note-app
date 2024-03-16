@@ -4,6 +4,7 @@ import cors from "cors";
 import authRoutes from "./routes/authentication";
 import userRoutes from "./routes/users";
 import notebookRoutes from "./routes/notebookLogic";
+import noteRoutes from "./routes/notes";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
@@ -21,6 +22,7 @@ const MONGO_URI: string = process.env.MONGO_URI!;
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api/notebook", notebookRoutes);
+app.use("/api/notes/", noteRoutes);
 
 mongoose
 	.connect(MONGO_URI)

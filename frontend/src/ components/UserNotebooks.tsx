@@ -14,7 +14,6 @@ import NotFound from "./NotFound";
 import Modal from "./Modal";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { ConfirmToast } from "react-confirm-toast";
 
 export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
@@ -49,6 +48,12 @@ export default function UserNotebooks() {
 			const confirmation = confirm(
 				`Are you sure you would like to delete the notebook "${notebookName}"? Once deleted, all notes made inside that notebook will also be deleted!`
 			);
+			// toast(t => (
+			// 	<span>
+			// 		Custom and <b>bold</b>
+			// 		<button onClick={() => toast.dismiss(t.id)}>Dismiss</button>
+			// 	</span>
+			// ));
 			if (confirmation && userData && userData.user_id) {
 				const filteredNotebooks = notebookDataCopy?.filter(
 					(notebook: Notebook) => notebook._id !== notebookID

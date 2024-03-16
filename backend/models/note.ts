@@ -19,6 +19,9 @@ const NoteSchema: Schema = new Schema({
 	},
 	timeEdited: {
 		type: String
+	},
+	notebookID: {
+		type: String
 	}
 });
 

@@ -6,7 +6,7 @@ import Notebook from "../models/notebook";
 
 const router = express.Router();
 
-async function getUser(user_id: string): Promise<User_Interface | null> {
+export async function getUser(user_id: string): Promise<User_Interface | null> {
 	try {
 		if (user_id) {
 			const user = await User.findOne({ _id: user_id });

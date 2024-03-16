@@ -1,0 +1,41 @@
+.panel {
+	border: 2px solid rgb(15, 108, 3);
+	width: 25%;
+	height: 100vh;
+	margin-left: 15%;
+}
+
+.panel h3 {
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
+	margin: 10px;
+	padding: 5px;
+}
+
+.panel button {
+	margin: 5px 20px 10px 20px;
+	width: 90%;
+}
+
+.panel .block {
+	width: 100%;
+	border: 2px solid rgb(15, 108, 3);
+	padding: 10px;
+	word-wrap: break-word;
+	height: auto;
+	box-sizing: border-box;
+	background-color: rgb(16, 63, 16);
+}
+
+.panel .block h3 {
+	margin-left: -5px;
+}
+
+.panel .block h3,
+p {
+	margin-top: 0px;
+}
+
+.panel .block p {
+	font-size: 14px;
+}

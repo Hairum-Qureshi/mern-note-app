@@ -17,6 +17,7 @@ export default interface Note_Interface {
 	timeEdited: string;
 	user_id: string;
 	author: string;
+	notebook_id: string;
 }
 
 export interface Notebook_Interface {

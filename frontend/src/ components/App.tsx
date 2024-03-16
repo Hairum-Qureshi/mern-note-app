@@ -8,6 +8,7 @@ import SignIn from "./SignIn";
 import Navbar from "./Navbar";
 import Notebook from "./UserNotebooks";
 import Notes from "./Notes";
+import UserNotes from "./UserNotes";
 import { AuthProvider } from "../contexts/authContext";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
 					<Route path="/notebooks/:user_id" element={<Notebook />} />
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/sign-in" element={<SignIn />} />
+					<Route path="/notes" element={<UserNotes />} />
 					<Route
 						path="/user/:user_id/notebook/:notebook_id"
 						element={<Notes />}
