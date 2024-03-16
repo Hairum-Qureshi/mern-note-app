@@ -13,7 +13,8 @@ import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import Modal from "./Modal";
 import axios from "axios";
-import useNotebookLogic from "../hooks/useNotebookLogic";
+import toast, { Toaster } from "react-hot-toast";
+import { ConfirmToast } from "react-confirm-toast";
 
 export default function UserNotebooks() {
 	const { userData, notebookData } = useAuth()!;
@@ -35,7 +36,14 @@ export default function UserNotebooks() {
 
 	function deleteNotebook(notebookID: string, notebookName: string | null) {
 		if (userData.notebooksCount === 1 || notebookDataCopy?.length === 1) {
-			return alert("You must have at least 1 notebook");
+			return toast("You must have at least 1 notebook", {
+				icon: "⚠️",
+				style: {
+					borderRadius: "10px",
+					background: "#D9790D",
+					color: "#fff"
+				}
+			});
 		} else {
 			// Maybe have it so that the notes made in that notebook won't get deleted?
 			const confirmation = confirm(
@@ -86,6 +94,8 @@ export default function UserNotebooks() {
 
 	return userData && userData.user_id === user_id ? (
 		<div className={notebook_css.tableContainer}>
+			<Toaster />
+
 			{modalStatus && (
 				<Modal
 					toggleModalState={closeModal}
