@@ -3,6 +3,7 @@ import User_Interface from "../interfaces";
 const router = express.Router();
 import { getUser } from "./users";
 import Note from "../models/note";
+import User from "../models/user";
 
 router.get("/notebook/:notebook_id/:user_id", async (req, res) => {
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
@@ -21,6 +22,28 @@ router.get("/notebook/:notebook_id/:user_id", async (req, res) => {
 			});
 	} else {
 		res.json({ message: "user not found" });
+	}
+});
+
+router.post("/create-note", async (req, res) => {
+	const { user_id, notebook_id } = req.body;
+	try {
+		const user: User_Interface | null = await getUser(user_id);
+		if (user) {
+			const note = await Note.create({
+				content: "",
+				user_id,
+				author: user.name,
+				datePosted: new Date().toLocaleDateString("en-US"),
+				timeEdited: "",
+				notebookID: notebook_id || "N/A"
+			});
+			note.save();
+
+			res.send(note);
+		}
+	} catch (error) {
+		console.log(error);
 	}
 });
 

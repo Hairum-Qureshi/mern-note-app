@@ -9,6 +9,14 @@ const NoteSchema: Schema = new Schema({
 	content: {
 		type: String
 	},
+	title: {
+		type: String,
+		default: "Untitled"
+	},
+	user_id: {
+		type: String,
+		required: true
+	},
 	author: {
 		type: String,
 		required: true,
@@ -21,7 +29,8 @@ const NoteSchema: Schema = new Schema({
 		type: String
 	},
 	notebookID: {
-		type: String
+		type: String,
+		ref: "Notebook"
 	}
 });
 

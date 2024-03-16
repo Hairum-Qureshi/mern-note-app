@@ -73,3 +73,19 @@ export interface NotebookLogicProperties {
 	) => void;
 	notebookData: Notebook | null;
 }
+
+export interface Note_Interface {
+	_id: string;
+	content: string;
+	title: string;
+	dateCreated: string;
+	timeEdited: string;
+	user_id: string;
+	author: string;
+	notebook_id: string;
+}
+
+export interface NoteBookDataProperties {
+	noteData: Note_Interface[];
+	createNote: (user_id: string, notebook_id: string) => void;
+}

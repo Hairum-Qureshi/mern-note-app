@@ -28,6 +28,10 @@ export default function App() {
 						path="/user/:user_id/notebook/:notebook_id"
 						element={<Notes />}
 					/>
+					<Route
+						path="/user/:user_id/notebook/:notebook_id/note/:note_id"
+						element={<Notes />}
+					/>
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</AuthProvider>

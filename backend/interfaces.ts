@@ -14,6 +14,7 @@ export default interface Note_Interface {
 	_id: string;
 	content: string;
 	dateCreated: string;
+	title: string;
 	timeEdited: string;
 	user_id: string;
 	author: string;

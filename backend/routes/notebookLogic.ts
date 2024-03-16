@@ -2,13 +2,8 @@ import express from "express";
 import Notebook from "../models/notebook";
 import User_Interface from "../interfaces";
 import User from "../models/user";
+import { getUser } from "./users";
 const router = express.Router();
-
-async function findUser(user_id: string): Promise<User_Interface | null> {
-	const user = await User.findOne({ _id: user_id });
-	if (user) return user;
-	else return null;
-}
 
 router.patch("/update", async (req, res) => {
 	// All request URLs have a prefix of "/api/notebook" *****
@@ -36,7 +31,7 @@ router.post("/create", async (req, res) => {
 		});
 		notebook.save();
 
-		const user: User_Interface | null = await findUser(user_id);
+		const user: User_Interface | null = await getUser(user_id);
 		if (user) {
 			await User.findByIdAndUpdate(
 				{
@@ -59,7 +54,7 @@ router.delete("/delete-notebook/:notebook_id/:user_id", async (req, res) => {
 		_id: notebook_id
 	});
 
-	const user: User_Interface | null = await findUser(user_id);
+	const user: User_Interface | null = await getUser(user_id);
 	if (user) {
 		const notebookCount: number = user.notebooksCount;
 		await User.findByIdAndUpdate(
