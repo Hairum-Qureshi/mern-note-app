@@ -12,6 +12,11 @@ export default function Modal({
 }: ModalProps) {
 	const [newName, setNewName] = useState(notebookName);
 	const [createNotebookName, setCreateNotebookName] = useState<string>("");
+	const [characters, setCharacters] = useState(
+		textToDisplay === "Rename your notebook:" && notebookName
+			? notebookName.length
+			: 0
+	);
 	const { validateName } = useNotebookLogic();
 	const [modalType, setModalType] = useState<boolean>(
 		textToDisplay === "Rename your notebook:"
@@ -27,13 +32,18 @@ export default function Modal({
 				<div className={modal_css.container}>
 					<label>{textToDisplay}</label>
 					<input
+						style={{
+							border: characters === 40 ? "2px solid red" : ""
+						}}
+						maxLength={40}
 						type="text"
 						value={modalType ? newName : createNotebookName}
-						onChange={event =>
+						onChange={event => {
 							modalType
 								? setNewName(event.target.value)
-								: setCreateNotebookName(event.target.value)
-						}
+								: setCreateNotebookName(event.target.value);
+							setCharacters(event.target.value.length);
+						}}
 					/>
 					<button
 						onClick={() =>
@@ -47,6 +57,7 @@ export default function Modal({
 					>
 						{modalType ? "Change Name" : "Create Notebook"}
 					</button>
+					<h3>Characters: {characters}/40</h3>
 				</div>
 			</div>
 		</div>

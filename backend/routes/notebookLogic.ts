@@ -53,8 +53,6 @@ router.post("/create", async (req, res) => {
 });
 
 router.delete("/delete-notebook/:notebook_id/:user_id", async (req, res) => {
-	// decrement the notebook count also
-
 	const { notebook_id, user_id } = req.params;
 
 	await Notebook.deleteOne({
