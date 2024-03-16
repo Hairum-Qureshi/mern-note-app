@@ -22,3 +22,5 @@
 [] Resolve issue where if you update the notebook name, it does show the new name, however, if you go from one page to another in the application, it'll show the previous name and not the one you just set; you have to refresh the page in order to "finalize" the new name because then it'll cause the variable "newName" to go undefined and use the name from the database.
 
 [] Resolve the "delete notebook issue" on the page that displays all the user's notebooks. When the user deletes the notebook, it does disappear, but if they switch between routes and did not refresh on the notebook route, the notebook they deleted comes back and they have to refresh the page before leaving it.
+
+[] Add middleware to prevent users from tampering with the URL, especially when it comes to the notebooks/the notebook note routes where they change the user id. If they do mess with the user id and it's not their user id, redirect them to a 404 page because only the creators of the notebooks are allowed to view the notes
