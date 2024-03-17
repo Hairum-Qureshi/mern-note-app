@@ -72,6 +72,7 @@ export interface NotebookLogicProperties {
 		modalType: boolean
 	) => void;
 	notebookData: Notebook | null;
+	getNotebook: (notebook_id: string | undefined) => Promise<string | undefined>;
 }
 
 export interface Note_Interface {

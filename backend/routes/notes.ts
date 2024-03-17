@@ -6,22 +6,7 @@ import Note from "../models/note";
 import User from "../models/user";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import Notebook from "../models/notebook";
-
-export async function getNotebookName(
-	notebook_id: string
-): Promise<string | undefined> {
-	try {
-		if (notebook_id) {
-			const notebook = await Notebook.findOne({ _id: notebook_id });
-			return notebook?.notebookName;
-		} else {
-			return undefined;
-		}
-	} catch (error) {
-		console.error("Error finding notebook:", error);
-		return undefined;
-	}
-}
+import { getNotebookName } from "./notebookLogic";
 
 async function getCurrUID(req: Request): Promise<JwtPayload> {
 	const cookieToken = req.cookies;

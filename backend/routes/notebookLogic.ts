@@ -5,6 +5,29 @@ import User from "../models/user";
 import { getUser } from "./users";
 const router = express.Router();
 
+export async function getNotebookName(
+	notebook_id: string
+): Promise<string | undefined> {
+	try {
+		if (notebook_id) {
+			const notebook = await Notebook.findOne({ _id: notebook_id });
+			return notebook?.notebookName;
+		} else {
+			return undefined;
+		}
+	} catch (error) {
+		console.error("Error finding notebook:", error);
+		return undefined;
+	}
+}
+
+router.get("/:notebook_id", async (req, res) => {
+	// All request URLs have a prefix of "/api/notebook" *****
+	const { notebook_id } = req.params;
+	const notebook: string | undefined = await getNotebookName(notebook_id);
+	res.send(notebook);
+});
+
 router.patch("/update", async (req, res) => {
 	// All request URLs have a prefix of "/api/notebook" *****
 	const { notebookName, user_id, notebook_id } = req.body;

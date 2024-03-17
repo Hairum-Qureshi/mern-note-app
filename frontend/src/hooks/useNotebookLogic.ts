@@ -8,6 +8,20 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 	const [notebookData, setNotebookData] = useState<Notebook | null>(null);
 	const notebookNameRef = useRef<string>();
 
+	async function getNotebook(
+		notebook_id: string | undefined
+	): Promise<string | undefined> {
+		try {
+			const response = await axios.get(
+				`http://localhost:4000/api/notebook/${notebook_id}`
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			return undefined;
+		}
+	}
+
 	function validateName(
 		newName: string,
 		toggleModalState: () => void,
@@ -50,5 +64,5 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 			.catch(error => console.log(error));
 	}
 
-	return { validateName, notebookData };
+	return { validateName, notebookData, getNotebook };
 }

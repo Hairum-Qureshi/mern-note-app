@@ -15,9 +15,10 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
 	const { getNoteData, noteContent } = useNotebookData();
 	const { userData } = useAuth();
 	const [noteData, setNoteData] = useState<Note_Interface[] | undefined>();
-	// const editor = useRef(null);
 	const [editorContent, setEditorContent] = useState<string>();
 	const [value, setValue] = useState<string>();
+
+	// May need to store current ID of the note selected so that way, when the user enters the URL with that note ID, it will open up to that note and display that note's contents.
 
 	useEffect(() => {
 		getNoteData(noteID);
@@ -25,9 +26,6 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
 	}, [noteID]);
 
 	return (
-		// <div className={viewer_css.block}>
-		// 	<p>{JSON.stringify(noteData && noteData[0])}</p>
-		// </div>
 		<div className={viewer_css.block}>
 			<Editor
 				apiKey="w7sjc38sud70tb0pse4oswh03h6c1pmth6o10a3vp7z35sbc"
