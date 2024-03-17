@@ -4,9 +4,7 @@ import { NoteBookDataProperties, Note_Interface } from "../interfaces";
 
 export default function useNotebookData(): NoteBookDataProperties {
 	const [createdNotes, setCreatedNotes] = useState<Note_Interface[]>([]);
-	const [noteContent, setNoteContent] = useState<
-		Note_Interface[] | undefined
-	>();
+	const [noteContent, setNoteContent] = useState<Note_Interface[] | null>(null);
 
 	async function getNoteData(note_id: string | undefined) {
 		await axios

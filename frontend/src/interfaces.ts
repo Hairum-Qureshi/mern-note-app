@@ -77,18 +77,18 @@ export interface NotebookLogicProperties {
 export interface Note_Interface {
 	_id: string;
 	content: string;
-	title: string;
 	dateCreated: string;
 	timeEdited: string;
 	user_id: string;
 	author: string;
 	notebook_id: string;
 	notebookName: string;
+	title: string;
 }
 
 export interface NoteBookDataProperties {
 	createdNotes: Note_Interface[];
 	createNote: (user_id: string, notebook_id: string) => void;
 	getNoteData: (note_id: string | undefined) => void;
-	noteContent: Note_Interface[] | undefined;
+	noteContent: Note_Interface[] | null;
 }

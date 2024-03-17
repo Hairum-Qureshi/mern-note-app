@@ -31,17 +31,28 @@ async function getCurrUID(req: Request): Promise<JwtPayload> {
 
 router.get("/get-note/:note_id", async (req, res) => {
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
+	// const { note_id } = req.params;
+	// const curr_uid = await getCurrUID(req);
+	// try {
+	// 	const note = await Note.find({
+	// 		_id: note_id
+	// 	});
+	// 	res.json(note);
+	// } catch (error) {
+	// 	console.log(error);
+	// 	res.send(error);
+	// }
 	const { note_id } = req.params;
 	const curr_uid = await getCurrUID(req);
 	try {
-		// if (curr_uid && curr_uid.user_id) {
-		const note = await Note.find({
-			_id: note_id
-		});
+		const note = await Note.find({ _id: note_id });
+		if (!note) {
+			return res.status(404).json({ error: "Note not found" });
+		}
 		res.json(note);
 	} catch (error) {
-		console.log(error);
-		res.send(error);
+		console.error(error);
+		res.status(500).json({ error: "Server error" });
 	}
 });
 

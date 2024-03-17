@@ -35,6 +35,11 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
 					setEditorContent(editor.getContent({ format: "text" }));
 					setValue(newValue);
 				}}
+				initialValue={
+					noteContent
+						? `<h2>${noteContent[0].title}</h2> <p>${noteContent[0].content} <br /> ${noteContent[0]._id}</p>`
+						: ""
+				}
 				init={{
 					plugins:
 						"anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
@@ -47,7 +52,13 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
 						{ value: "Email", title: "Email" }
 					],
 					branding: false,
-					content_css: "../css/note_viewer.module.css"
+					content_style: `
+                        * {
+                            background: white;
+                        }
+
+                        
+                    `
 				}}
 			/>
 		</div>
