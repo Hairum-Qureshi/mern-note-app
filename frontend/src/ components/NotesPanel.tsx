@@ -20,7 +20,7 @@ export default function NotesPanel() {
 	return (
 		<>
 			<div className={notes_css.panel}>
-				<h3>Notebook Title &gt; Notes</h3>
+				<h3>Notebook Title (EDIT THIS) &gt; Notes</h3>
 				<span onClick={() => setPressed(true)}>
 					{pressed ? (
 						<FontAwesomeIcon icon={faCheck} />

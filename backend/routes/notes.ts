@@ -39,9 +39,6 @@ router.get("/get-note/:note_id", async (req, res) => {
 			_id: note_id
 		});
 		res.json(note);
-		// } else {
-		// 	res.json({ message: "user not found" });
-		// }
 	} catch (error) {
 		console.log(error);
 		res.send(error);
