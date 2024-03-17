@@ -83,9 +83,12 @@ export interface Note_Interface {
 	user_id: string;
 	author: string;
 	notebook_id: string;
+	notebookName: string;
 }
 
 export interface NoteBookDataProperties {
-	noteData: Note_Interface[];
+	createdNotes: Note_Interface[];
 	createNote: (user_id: string, notebook_id: string) => void;
+	getNoteData: (note_id: string | undefined) => void;
+	noteContent: Note_Interface[] | undefined;
 }

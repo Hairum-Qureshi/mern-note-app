@@ -31,6 +31,10 @@ const NoteSchema: Schema = new Schema({
 	notebookID: {
 		type: String,
 		ref: "Notebook"
+	},
+	notebookName: {
+		type: String,
+		ref: "Notebook"
 	}
 });
 

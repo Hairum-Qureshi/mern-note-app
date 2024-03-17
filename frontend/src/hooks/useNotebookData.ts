@@ -1,23 +1,37 @@
 import axios from "axios";
 import { useState } from "react";
 import { NoteBookDataProperties, Note_Interface } from "../interfaces";
-import { useNavigate } from "react-router-dom";
 
 export default function useNotebookData(): NoteBookDataProperties {
-	const [noteData, setNoteData] = useState<Note_Interface[]>([]);
-	const navigate = useNavigate();
+	const [createdNotes, setCreatedNotes] = useState<Note_Interface[]>([]);
+	const [noteContent, setNoteContent] = useState<
+		Note_Interface[] | undefined
+	>();
 
-	// Implement the function below:
-	async function getNotes(user_id: string, notebook_id: string) {
+	async function getNoteData(note_id: string | undefined) {
 		await axios
-			.get(`http://localhost:4000/api/notes/notebook/${notebook_id}/${user_id}`)
+			.get(`http://localhost:4000/api/notes/get-note/${note_id}`)
 			.then(response => {
-				console.log(response.data);
+				setNoteContent(response.data);
 			})
 			.catch(error => {
-				console.log("There was an error", error);
+				console.log(error);
 			});
 	}
+
+	// async function getNotes(
+	// 	user_id: string | undefined,
+	// 	notebook_id: string | undefined
+	// ) {
+	// 	await axios
+	// 		.get(`http://localhost:4000/api/notes/notebook/${notebook_id}/${user_id}`)
+	// 		.then(response => {
+	// 			console.log(response.data);
+	// 		})
+	// 		.catch(error => {
+	// 			console.log("There was an error", error);
+	// 		});
+	// }
 
 	async function createNote(user_id: string, notebook_id: string) {
 		try {
@@ -28,11 +42,10 @@ export default function useNotebookData(): NoteBookDataProperties {
 					notebook_id
 				}
 			);
-			setNoteData(prevNoteData => [...prevNoteData, response.data]);
-			// navigate(`${window.location.pathname}/note/${response.data._id}`);
+			setCreatedNotes(prevNoteData => [...prevNoteData, response.data]);
 		} catch (error) {
 			console.log("There was an error", error);
 		}
 	}
-	return { noteData, createNote };
+	return { createdNotes, createNote, getNoteData, noteContent };
 }

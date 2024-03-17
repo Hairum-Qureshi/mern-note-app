@@ -18,7 +18,9 @@
 
 ## To run server:
 
--> Run `cd backend` then type `nodemon server.ts`
+-> Run `cd backend` then type `nodemon server.ts` 
+** If `nodemon server.ts` does not work, try running `npx nodemon server.ts` **
+
 
 ## To run client:
 

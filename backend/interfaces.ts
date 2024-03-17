@@ -19,6 +19,7 @@ export default interface Note_Interface {
 	user_id: string;
 	author: string;
 	notebook_id: string;
+	notebookName: string;
 }
 
 export interface Notebook_Interface {

@@ -1,0 +1,16 @@
+.block {
+	float: right;
+	display: inline-block;
+	width: 59%;
+	border: 2px solid white;
+	padding: 10px;
+	height: 100vh;
+	overflow-y: scroll;
+	color: white;
+	word-wrap: break-word;
+}
+
+.tiptap .ProseMirror {
+	border: 2px solid white;
+	height: 100px;
+}

@@ -1,8 +1,10 @@
 .panel {
 	border: 2px solid rgb(15, 108, 3);
-	width: 25%;
+	width: 24%;
 	height: 100vh;
+	overflow-y: scroll;
 	margin-left: 15%;
+	float: left;
 }
 
 .panel h3 {
@@ -15,7 +17,8 @@
 
 .panel span {
 	display: inline;
-	border: 1px solid lime;
+	/* border: 1px solid lime; */
+	background-color: rgb(8, 111, 8);
 	padding: 5px;
 	border-radius: 10px;
 	float: right;
