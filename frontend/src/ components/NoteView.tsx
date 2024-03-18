@@ -1,17 +1,15 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import viewer_css from "../css/note_viewer.module.css";
 import useNotebookData from "../hooks/useNotebookData";
-import { Note_Interface } from "../interfaces";
+import { NoteView_Props, Note_Interface } from "../interfaces";
 import { Editor } from "@tinymce/tinymce-react";
 import useAuth from "../contexts/authContext";
 
-interface Props {
-	noteID: string | undefined;
-	notebookID: string | undefined;
-	userID: string | undefined;
-}
-
-export default function NoteView({ noteID, notebookID, userID }: Props) {
+export default function NoteView({
+	noteID,
+	notebookID,
+	userID
+}: NoteView_Props) {
 	const { getNoteData, noteContent } = useNotebookData();
 	const { userData } = useAuth();
 	const [noteData, setNoteData] = useState<Note_Interface[] | undefined>();
@@ -22,22 +20,28 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
 
 	useEffect(() => {
 		getNoteData(noteID);
-		setNoteData(noteContent);
-	}, [noteID]);
+		if (noteContent) setNoteData(noteContent);
+	}, [noteID, noteData]);
+
+	function autosaveContent(editorContent: string) {
+		console.log(editorContent);
+	}
 
 	return (
 		<div className={viewer_css.block}>
 			<Editor
+				onChange={() => autosaveContent(editorContent!)}
 				apiKey="w7sjc38sud70tb0pse4oswh03h6c1pmth6o10a3vp7z35sbc"
 				onEditorChange={(newValue, editor) => {
 					setEditorContent(editor.getContent({ format: "text" }));
 					setValue(newValue);
 				}}
-				initialValue={
-					noteContent
-						? `<h2>${noteContent[0].title}</h2> <p>${noteContent[0].content} <br /> ${noteContent[0]._id}</p>`
-						: ""
-				}
+				initialValue={`${
+					noteContent === null
+						? ""
+						: noteContent &&
+						  `<h3>${noteContent[0].title}</h3><p>${noteContent[0].content} <br /> ${noteContent[0]._id}</p>`
+				}`}
 				init={{
 					plugins:
 						"anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
@@ -54,8 +58,6 @@ export default function NoteView({ noteID, notebookID, userID }: Props) {
                         * {
                             background: white;
                         }
-
-                        
                     `
 				}}
 			/>

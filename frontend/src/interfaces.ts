@@ -87,9 +87,17 @@ export interface Note_Interface {
 	title: string;
 }
 
+export interface NoteView_Props {
+	noteID: string | undefined;
+	notebookID: string | undefined;
+	userID: string | undefined;
+}
+
 export interface NoteBookDataProperties {
 	createdNotes: Note_Interface[];
 	createNote: (user_id: string, notebook_id: string) => void;
 	getNoteData: (note_id: string | undefined) => void;
 	noteContent: Note_Interface[] | null;
+	getNotes: (notebook_id: string | undefined) => void;
+	notebookNotes: Note_Interface[] | null;
 }

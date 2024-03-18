@@ -13,12 +13,12 @@ export default interface User_Interface {
 export default interface Note_Interface {
 	_id: string;
 	content: string;
-	dateCreated: string;
 	title: string;
-	timeEdited: string;
 	user_id: string;
 	author: string;
-	notebook_id: string;
+	datePosted: string; // changed from dateCreated to datePosted
+	timeEdited: string;
+	notebookID: string; // changed from notebook_id to notebookID
 	notebookName: string;
 }
 
