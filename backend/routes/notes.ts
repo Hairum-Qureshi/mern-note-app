@@ -1,5 +1,5 @@
 import express, { Request } from "express";
-import User_Interface, { Notebook_Interface } from "../interfaces";
+import User_Interface from "../interfaces";
 const router = express.Router();
 import { getUser } from "./users";
 import Note from "../models/note";
@@ -14,6 +14,7 @@ async function getCurrUID(req: Request): Promise<JwtPayload> {
 }
 
 router.get("/notebook/:notebook_id", async (req, res) => {
+	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
 	const { notebook_id } = req.params;
 	const currUID = await getCurrUID(req);
 	if (currUID) {
@@ -35,8 +36,6 @@ router.get("/notebook/:notebook_id", async (req, res) => {
 });
 
 router.get("/get-note/:note_id", async (req, res) => {
-	// THIS IS THE PROBLEMATIC ROUTE:
-
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
 	const { note_id } = req.params;
 	try {
@@ -52,7 +51,6 @@ router.get("/get-note/:note_id", async (req, res) => {
 				}
 				res.send(note);
 			} catch (err) {
-				// Handle error
 				console.error(err);
 				res.status(500).send("Internal Server Error");
 			}
@@ -66,6 +64,8 @@ router.get("/get-note/:note_id", async (req, res) => {
 });
 
 router.post("/create-note", async (req, res) => {
+	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
+
 	const { user_id, notebook_id } = req.body;
 	try {
 		const user: User_Interface | null = await getUser(user_id);

@@ -3,20 +3,25 @@ import Notebook from "../models/notebook";
 import User_Interface from "../interfaces";
 import User from "../models/user";
 import { getUser } from "./users";
+import { Types } from "mongoose";
 const router = express.Router();
 
 export async function getNotebookName(
 	notebook_id: string
 ): Promise<string | undefined> {
 	try {
-		if (notebook_id) {
+		if (Types.ObjectId.isValid(notebook_id)) {
 			const notebook = await Notebook.findOne({ _id: notebook_id });
 			return notebook?.notebookName;
 		} else {
+			// console.error(
+			// 	"<NotebookLogic.ts [17]> Invalid notebook ID format:",
+			// 	notebook_id
+			// );
 			return undefined;
 		}
 	} catch (error) {
-		console.error("Error finding notebook:", error);
+		console.error("Error finding user:", error);
 		return undefined;
 	}
 }

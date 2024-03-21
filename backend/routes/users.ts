@@ -3,15 +3,17 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import User from "../models/user";
 import User_Interface from "../interfaces";
 import Notebook from "../models/notebook";
+import { Types } from "mongoose";
 
 const router = express.Router();
 
 export async function getUser(user_id: string): Promise<User_Interface | null> {
 	try {
-		if (user_id) {
+		if (Types.ObjectId.isValid(user_id)) {
 			const user = await User.findOne({ _id: user_id });
 			return user;
 		} else {
+			console.error("<users.ts [16]> Invalid user ID format", user_id === null);
 			return null;
 		}
 	} catch (error) {
