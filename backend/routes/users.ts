@@ -13,7 +13,7 @@ export async function getUser(user_id: string): Promise<User_Interface | null> {
 			const user = await User.findOne({ _id: user_id });
 			return user;
 		} else {
-			console.error("<users.ts [16]> Invalid user ID format", user_id === null);
+			console.error("<users.ts [16]> Invalid user ID format", user_id);
 			return null;
 		}
 	} catch (error) {

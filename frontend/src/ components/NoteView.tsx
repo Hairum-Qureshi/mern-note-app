@@ -4,12 +4,10 @@ import useNotebookData from "../hooks/useNotebookData";
 import { NoteView_Props, Note_Interface } from "../interfaces";
 import { Editor } from "@tinymce/tinymce-react";
 import useAuth from "../contexts/authContext";
+import { useParams } from "react-router-dom";
 
-export default function NoteView({
-	noteID,
-	notebookID,
-	userID
-}: NoteView_Props) {
+export default function NoteView() {
+	const { note_id, notebook_id, user_id } = useParams();
 	const { getNoteData, noteContent } = useNotebookData();
 	const { userData } = useAuth();
 	const [noteData, setNoteData] = useState<Note_Interface[] | undefined>();
@@ -19,9 +17,9 @@ export default function NoteView({
 	// May need to store current ID of the note selected so that way, when the user enters the URL with that note ID, it will open up to that note and display that note's contents.
 
 	useEffect(() => {
-		getNoteData(noteID);
+		getNoteData(note_id); // gets the data of the note based on the note ID passed into it
 		if (noteContent) setNoteData(noteContent);
-	}, [noteID, noteData]);
+	}, [note_id, noteData]);
 
 	function autosaveContent(editorContent: string) {
 		console.log(editorContent);
