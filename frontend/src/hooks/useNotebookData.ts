@@ -8,6 +8,7 @@ export default function useNotebookData(): NoteBookDataProperties {
 	const [notebookNotes, setNotebookNotes] = useState<Note_Interface[] | null>(
 		[]
 	);
+	const [editor, showEditor] = useState(false);
 
 	async function getNoteData(note_id: string | undefined) {
 		if (note_id) {

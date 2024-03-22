@@ -90,7 +90,7 @@ export default function NotesPanel() {
 						</Link>
 					))}
 			</div>
-			<NoteView />
+			{createdNotes.length === 0 ? "" : <NoteView />}
 		</>
 	) : (
 		<NotFound />
