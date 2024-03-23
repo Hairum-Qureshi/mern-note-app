@@ -16,8 +16,6 @@ export default function NoteView() {
 	const [value, setValue] = useState<string>();
 	const { autosaveContent } = useNoteLogic();
 
-	// May need to store current ID of the note selected so that way, when the user enters the URL with that note ID, it will open up to that note and display that note's contents.
-
 	useEffect(() => {
 		getNoteData(note_id); // gets the data of the note based on the note ID passed into it
 		if (noteContent) setNoteData(noteContent);

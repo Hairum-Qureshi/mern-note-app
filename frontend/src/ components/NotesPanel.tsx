@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import NoteView from "./NoteView";
 import useNotebookLogic from "../hooks/useNotebookLogic";
 import NotFound from "./NotFound";
+import toast, { Toaster } from "react-hot-toast";
+
+// TODO: need to make the "share notes" link button work.
 
 export default function NotesPanel() {
 	const { userData } = useAuth()!;
@@ -37,7 +40,19 @@ export default function NotesPanel() {
 				<h3>
 					{currentNotebookName ? `${currentNotebookName} > Notes` : "Notes"}
 				</h3>
-				<span onClick={() => setPressed(true)}>
+				<span
+					onClick={() => {
+						setPressed(true);
+						return toast("Shareable link copied!", {
+							icon: "[icon here]",
+							style: {
+								borderRadius: "10px",
+								background: "#D9790D",
+								color: "#fff"
+							}
+						});
+					}}
+				>
 					{pressed ? (
 						<FontAwesomeIcon icon={faCheck} />
 					) : (
