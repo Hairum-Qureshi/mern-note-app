@@ -36,6 +36,7 @@ export default function NotesPanel() {
 
 	return userData.message !== "user not found" ? (
 		<>
+			<Toaster />
 			<div className={notes_css.panel}>
 				<h3>
 					{currentNotebookName ? `${currentNotebookName} > Notes` : "Notes"}
@@ -44,10 +45,10 @@ export default function NotesPanel() {
 					onClick={() => {
 						setPressed(true);
 						return toast("Shareable link copied!", {
-							icon: "[icon here]",
+							icon: "🔗",
 							style: {
 								borderRadius: "10px",
-								background: "#D9790D",
+								background: "#076315",
 								color: "#fff"
 							}
 						});
