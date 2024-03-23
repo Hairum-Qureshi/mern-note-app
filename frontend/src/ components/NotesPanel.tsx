@@ -13,6 +13,8 @@ import toast, { Toaster } from "react-hot-toast";
 
 // TODO: need to make the "share notes" link button work.
 
+// TODO: note blocks all fire a "Double clicked!" alert message when you double click. Implement feature to prompt user asking if they'd like to delete the note if double clicked
+
 export default function NotesPanel() {
 	const { userData } = useAuth()!;
 	const { createdNotes, createNote, getNotes, notebookNotes } =
@@ -75,6 +77,7 @@ export default function NotesPanel() {
 							<Link
 								to={`/user/${user_id}/notebook/${notebook_id}/note/${note._id}`}
 								key={note._id}
+								onDoubleClick={() => alert("Double clicked!")}
 								onClick={() => setSelectedNoteID(note._id)}
 							>
 								<div className={notes_css.block}>

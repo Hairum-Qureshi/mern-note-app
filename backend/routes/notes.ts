@@ -91,4 +91,10 @@ router.post("/create-note", async (req, res) => {
 	}
 });
 
+router.patch("/note/:note_id/update", (req, res) => {
+	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
+	const { note_id } = req.params;
+	const { note_content } = req.body;
+});
+
 export default router;

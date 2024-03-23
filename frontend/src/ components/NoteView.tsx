@@ -51,6 +51,7 @@ export default function NoteView() {
 					content_style: `
                         * {
                             background: white;
+                            line-height: 5px;
                         }
                     `
 				}}

@@ -24,3 +24,5 @@
 [] Resolve the "delete notebook issue" on the page that displays all the user's notebooks. When the user deletes the notebook, it does disappear, but if they switch between routes and did not refresh on the notebook route, the notebook they deleted comes back and they have to refresh the page before leaving it.
 
 [] Add middleware to prevent users from tampering with the URL, especially when it comes to the notebooks/the notebook note routes where they change the user id. If they do mess with the user id and it's not their user id, redirect them to a 404 page because only the creators of the notebooks are allowed to view the notes
+
+[] Need to redirect user to 404 page if the user accesses a notebook that's deleted. Also need to make sure all notes created in that notebook are deleted too. To elaborate, if the user visits a URL of a deleted notebook, they should be redirected to a 404 page and not the notebook itself.
