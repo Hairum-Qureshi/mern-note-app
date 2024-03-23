@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import viewer_css from "../css/note_viewer.module.css";
 import useNotebookData from "../hooks/useNotebookData";
-import { NoteView_Props, Note_Interface } from "../interfaces";
+import { Note_Interface } from "../interfaces";
 import { Editor } from "@tinymce/tinymce-react";
 import useAuth from "../contexts/authContext";
 import { useParams } from "react-router-dom";

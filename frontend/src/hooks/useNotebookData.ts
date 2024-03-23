@@ -8,7 +8,6 @@ export default function useNotebookData(): NoteBookDataProperties {
 	const [notebookNotes, setNotebookNotes] = useState<Note_Interface[] | null>(
 		[]
 	);
-	const [editor, showEditor] = useState(false);
 
 	async function getNoteData(note_id: string | undefined) {
 		if (note_id) {
@@ -25,19 +24,33 @@ export default function useNotebookData(): NoteBookDataProperties {
 		}
 	}
 
+	async function getNotes(
+		notebook_id: string | undefined
+	): Promise<Note_Interface | undefined> {
+		try {
+			const response = await axios.get(
+				`http://localhost:4000/api/notes/notebook/${notebook_id}`
+			);
+
+			console.log(response);
+
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			return undefined;
+		}
+	}
+
 	async function getNotes(notebook_id: string | undefined) {
-		await axios
-			.get(`http://localhost:4000/api/notes/notebook/${notebook_id}`)
-			.then(response => {
-				console.log("x", response);
-				setNotebookNotes(prev =>
-					prev === null ? [response.data] : [...prev, response.data]
-				);
-			})
-			.catch(error => {
-				console.log("There was an error", error);
-				setNotebookNotes(null);
-			});
+		console.log("(getNotes function) Notebook ID received:", notebook_id);
+		try {
+			const response = await axios.get(
+				`http://localhost:4000/api/notes/notebook/${notebook_id}`
+			);
+			setNotebookNotes(response.data);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function createNote(user_id: string, notebook_id: string) {

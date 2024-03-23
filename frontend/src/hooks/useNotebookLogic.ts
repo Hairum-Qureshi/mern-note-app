@@ -15,6 +15,7 @@ export default function useNotebookLogic(): NotebookLogicProperties {
 			const response = await axios.get(
 				`http://localhost:4000/api/notebook/${notebook_id}`
 			);
+
 			return response.data;
 		} catch (error) {
 			console.error(error);

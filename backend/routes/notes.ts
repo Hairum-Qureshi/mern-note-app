@@ -17,21 +17,23 @@ router.get("/notebook/:notebook_id", async (req, res) => {
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
 	const { notebook_id } = req.params;
 	const currUID = await getCurrUID(req);
-	if (currUID) {
-		const user: User_Interface | null = await getUser(currUID.user_id);
-		if (user) {
-			Note.find({ notebookID: notebook_id }) // Assuming the field in the Note model is "notebookID". This line queries the Note model to find all notes where the notebook ID field matches the ID of the notebook.
-				.populate("notebookID")
-				.then(notes => {
-					res.json(notes);
-				})
-				.catch(err => {
-					console.error(err);
-					res.status(500).json({ message: "Internal Server Error" });
-				});
-		} else {
-			res.json({ message: "user not found/isn't signed in" });
-		}
+	if (!currUID) {
+		// Check if currUID and currUID.user_id exist
+		// const user: User_Interface | null = await getUser(currUID.user_id);
+		// if (user) {
+		Note.find({ notebookID: notebook_id })
+			.then(notes => {
+				res.json(notes);
+			})
+			.catch(err => {
+				console.error(err);
+				res.status(500).json({ message: "Internal Server Error" });
+			});
+		// } else {
+		// 	res.json({ message: "user not found/isn't signed in" });
+		// }
+	} else {
+		res.json({ message: "user not found/isn't signed in" });
 	}
 });
 
