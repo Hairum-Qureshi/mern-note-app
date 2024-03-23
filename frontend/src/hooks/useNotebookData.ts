@@ -4,7 +4,7 @@ import { NoteBookDataProperties, Note_Interface } from "../interfaces";
 
 export default function useNotebookData(): NoteBookDataProperties {
 	const [createdNotes, setCreatedNotes] = useState<Note_Interface[]>([]);
-	const [noteContent, setNoteContent] = useState<Note_Interface[] | nuls>(null);
+	const [noteContent, setNoteContent] = useState<Note_Interface[] | null>(null);
 	const [notebookNotes, setNotebookNotes] = useState<Note_Interface[] | null>(
 		[]
 	);

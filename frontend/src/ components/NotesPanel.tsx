@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import NoteView from "./NoteView";
 import useNotebookLogic from "../hooks/useNotebookLogic";
-import axios from "axios";
 import NotFound from "./NotFound";
 
 export default function NotesPanel() {
@@ -22,20 +21,17 @@ export default function NotesPanel() {
 	const [currentNotebookName, setCurrentNotebookName] = useState<string>();
 	const [allNotes, setAllNotes] = useState<Note_Interface[] | null>();
 
-	// TODO: need to create a function in the useNotebookData hook to retrieve all the notes for the specific notebook the user is in. When the page refreshes, noteData will be undefined which is fine, which is why we'll need to add a check to see if noteData is undefined, map over the array containing all the notes. Otherwise, just loop over noteData which would just appends the notes without a page refresh and "behind the scenes" add them to the database; that way, upon refresh, it'll display all the notes created. Only concern really is, if the user presses the create button, would it remove the notes being rendered from the "display all notes" array and simply display the 1 note the user had created after pressing the button and increment from there?
-
 	useEffect(() => {
 		getNotes(notebook_id);
-		setAllNotes(notebookNotes);
+		// setAllNotes(notebookNotes);
 
 		async function getNoteData() {
 			const notebookName: string | undefined = await getNotebook(notebook_id);
 			setCurrentNotebookName(notebookName);
 		}
-		getNoteData();
-	}, []);
 
-	console.log("X", allNotes);
+		getNoteData();
+	}, [createdNotes]);
 
 	return userData.message !== "user not found" ? (
 		<>
@@ -57,8 +53,8 @@ export default function NotesPanel() {
 				>
 					Create Note
 				</button>
-				{createdNotes &&
-					createdNotes.map((note: Note_Interface) => (
+				{notebookNotes &&
+					notebookNotes.slice().reverse().map((note: Note_Interface) => (
 						<Link
 							to={`/user/${user_id}/notebook/${notebook_id}/note/${note._id}`}
 							key={note._id}
@@ -72,7 +68,7 @@ export default function NotesPanel() {
 						</Link>
 					))}
 			</div>
-			{createdNotes.length === 0 ? "" : <NoteView />}
+			{notebookNotes && notebookNotes.length === 0 ? "" : <NoteView />}
 		</>
 	) : (
 		<NotFound />
