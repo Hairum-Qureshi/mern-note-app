@@ -95,3 +95,7 @@ export interface NoteBookDataProperties {
 	getNotes: (notebook_id: string | undefined) => void;
 	notebookNotes: Note_Interface[] | null;
 }
+
+export interface NoteLogicProperties {
+	autosaveContent: (note_id: string, editorContent: string) => void;
+}

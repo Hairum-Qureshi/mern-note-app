@@ -5,6 +5,7 @@ import { Note_Interface } from "../interfaces";
 import { Editor } from "@tinymce/tinymce-react";
 import useAuth from "../contexts/authContext";
 import { useParams } from "react-router-dom";
+import useNoteLogic from "../hooks/useNoteLogic";
 
 export default function NoteView() {
 	const { note_id, notebook_id, user_id } = useParams();
@@ -13,6 +14,7 @@ export default function NoteView() {
 	const [noteData, setNoteData] = useState<Note_Interface[] | undefined>();
 	const [editorContent, setEditorContent] = useState<string>();
 	const [value, setValue] = useState<string>();
+	const { autosaveContent } = useNoteLogic();
 
 	// May need to store current ID of the note selected so that way, when the user enters the URL with that note ID, it will open up to that note and display that note's contents.
 
@@ -21,14 +23,10 @@ export default function NoteView() {
 		if (noteContent) setNoteData(noteContent);
 	}, [note_id, noteData]);
 
-	function autosaveContent(editorContent: string) {
-		console.log(editorContent);
-	}
-
 	return (
 		<div className={viewer_css.block}>
 			<Editor
-				onChange={() => autosaveContent(editorContent!)}
+				onKeyUp={() => autosaveContent(note_id!, editorContent!)}
 				apiKey="w7sjc38sud70tb0pse4oswh03h6c1pmth6o10a3vp7z35sbc"
 				onEditorChange={(newValue, editor) => {
 					setEditorContent(editor.getContent({ format: "text" }));
