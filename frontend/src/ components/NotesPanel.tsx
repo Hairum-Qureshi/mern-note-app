@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import notes_css from "../css/notes_panel.module.css";
 import useNotebookData from "../hooks/useNotebookData";
 import useAuth from "../contexts/authContext";
@@ -20,7 +20,6 @@ export default function NotesPanel() {
 	const { createdNotes, createNote, getNotes, notebookNotes } =
 		useNotebookData();
 	const { user_id, notebook_id } = useParams();
-	const [selectedNoteID, setSelectedNoteID] = useState<string | undefined>();
 	const [pressed, setPressed] = useState(false);
 	const { getNotebook } = useNotebookLogic();
 	const [currentNotebookName, setCurrentNotebookName] = useState<string>();
@@ -34,7 +33,7 @@ export default function NotesPanel() {
 		}
 
 		getNoteData();
-	}, [createdNotes]);
+	}, [createdNotes, notebookNotes]);
 
 	return userData.message !== "user not found" ? (
 		<>
@@ -78,12 +77,22 @@ export default function NotesPanel() {
 								to={`/user/${user_id}/notebook/${notebook_id}/note/${note._id}`}
 								key={note._id}
 								onDoubleClick={() => alert("Double clicked!")}
-								onClick={() => setSelectedNoteID(note._id)}
 							>
 								<div className={notes_css.block}>
-									<h3>{note.title}</h3>
-									<p>{note.content}</p>
-									<small>{note.timeEdited}</small>
+									<h3>
+										{note.title
+											.replace(/(<([^>]+)>)/gi, "")
+											.replace("&nbsp;", "")}
+									</h3>
+									<p>
+										{note.content
+											.replace(/<[^>]+>/g, "")
+											// Replace the first header with an empty string if it exists
+											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
+											.replace("&nbsp;", "")
+											.trim()}
+									</p>
+									<small>{note.timeEdited.replace(/(<([^>]+)>)/gi, "")}</small>
 								</div>
 							</Link>
 						))}

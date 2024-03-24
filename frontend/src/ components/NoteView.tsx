@@ -16,37 +16,46 @@ export default function NoteView() {
 	const [value, setValue] = useState<string>();
 	const { autosaveContent } = useNoteLogic();
 
+	// TODO: get rid of the "title" property in the note database -- it's not needed
+
 	useEffect(() => {
 		getNoteData(note_id); // gets the data of the note based on the note ID passed into it
 		if (noteContent) setNoteData(noteContent);
 	}, [note_id, noteData]);
 
-	function showLiveChanges(note_id: string, editorContent: string) {
-		// console.log(note_id, editorContent);
-		// if (noteContent) {
+	function showLiveChanges(
+		note_id: string,
+		editorContent: string,
+		title: string
+	) {
 		const index: number = noteContent!.findIndex(noteObj => {
 			return noteObj._id === note_id;
 		});
-		noteContent![index].content = editorContent;
-		// }
-		console.log(noteContent);
-	}
 
-	// useEffect(() => {
-	// 	if (newNotebookName) {
-	// const index: number = notebookData.findIndex(notebookObj => {
-	// 	return notebookObj._id === notebookID;
-	// });
-	// notebookData[index].notebookName = newNotebookName;
-	// 	}
-	// }, [newNotebookName]);
+		noteContent![index].content = editorContent;
+		noteContent![index].title = title;
+	}
 
 	return (
 		<div className={viewer_css.block}>
 			<Editor
 				onBlur={() => {
-					autosaveContent(note_id!, editorContent!);
-					showLiveChanges(note_id!, editorContent!);
+					autosaveContent(
+						note_id!,
+						editorContent!,
+						editorContent!
+							.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/i)?.[1]
+							?.split(/\r?\n/)[0]
+							?.trim() ?? "Untitled"
+					);
+					showLiveChanges(
+						note_id!,
+						editorContent!,
+						editorContent!
+							.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/i)?.[1]
+							?.split(/\r?\n/)[0]
+							?.trim() ?? "Untitled"
+					);
 				}}
 				apiKey="w7sjc38sud70tb0pse4oswh03h6c1pmth6o10a3vp7z35sbc"
 				onEditorChange={(newValue, editor) => {

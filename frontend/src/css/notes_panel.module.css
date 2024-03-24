@@ -46,6 +46,10 @@
 	background-color: rgb(16, 63, 16);
 }
 
+.panel a {
+	text-decoration: none;
+}
+
 .panel .block h3 {
 	margin-left: -5px;
 }
@@ -57,4 +61,5 @@ p {
 
 .panel .block p {
 	font-size: 14px;
+	color: rgb(28, 182, 28);
 }

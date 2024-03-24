@@ -25,7 +25,6 @@ export default function useNotebookData(): NoteBookDataProperties {
 	}
 
 	async function getNotes(notebook_id: string | undefined) {
-		console.log("(getNotes function) Notebook ID received:", notebook_id);
 		try {
 			const response = await axios.get(
 				`http://localhost:4000/api/notes/notebook/${notebook_id}`

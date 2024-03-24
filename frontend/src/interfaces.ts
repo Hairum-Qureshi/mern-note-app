@@ -97,5 +97,9 @@ export interface NoteBookDataProperties {
 }
 
 export interface NoteLogicProperties {
-	autosaveContent: (note_id: string, editorContent: string) => void;
+	autosaveContent: (
+		note_id: string,
+		editorContent: string,
+		title: string
+	) => void;
 }
