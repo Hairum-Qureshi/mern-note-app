@@ -1,11 +1,12 @@
 import express, { Request } from "express";
 import User_Interface from "../interfaces";
-const router = express.Router();
 import { getUser } from "./users";
 import Note from "../models/note";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { getNotebookName } from "./notebookLogic";
 import mongoose from "mongoose";
+
+const router = express.Router();
 
 async function getCurrUID(req: Request): Promise<JwtPayload> {
 	const cookieToken = req.cookies;
@@ -91,10 +92,19 @@ router.post("/create-note", async (req, res) => {
 	}
 });
 
-router.patch("/note/:note_id/update", (req, res) => {
+router.patch("/note/:note_id/update", async (req, res) => {
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
 	const { note_id } = req.params;
 	const { note_content } = req.body;
+
+	await Note.findByIdAndUpdate(
+		{
+			_id: note_id
+		},
+		{
+			content: note_content
+		}
+	);
 });
 
 export default router;

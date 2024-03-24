@@ -88,7 +88,7 @@ export default function UserNotebooks() {
 
 	useEffect(() => {
 		if (newNotebookName) {
-			const index = notebookData.findIndex(notebookObj => {
+			const index: number = notebookData.findIndex(notebookObj => {
 				return notebookObj._id === notebookID;
 			});
 			notebookData[index].notebookName = newNotebookName;

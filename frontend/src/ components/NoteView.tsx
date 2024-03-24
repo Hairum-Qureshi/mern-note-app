@@ -21,21 +21,39 @@ export default function NoteView() {
 		if (noteContent) setNoteData(noteContent);
 	}, [note_id, noteData]);
 
+	function showLiveChanges(note_id: string, editorContent: string) {
+		// console.log(note_id, editorContent);
+		// if (noteContent) {
+		const index: number = noteContent!.findIndex(noteObj => {
+			return noteObj._id === note_id;
+		});
+		noteContent![index].content = editorContent;
+		// }
+		console.log(noteContent);
+	}
+
+	// useEffect(() => {
+	// 	if (newNotebookName) {
+	// const index: number = notebookData.findIndex(notebookObj => {
+	// 	return notebookObj._id === notebookID;
+	// });
+	// notebookData[index].notebookName = newNotebookName;
+	// 	}
+	// }, [newNotebookName]);
+
 	return (
 		<div className={viewer_css.block}>
 			<Editor
-				onKeyUp={() => autosaveContent(note_id!, editorContent!)}
+				onBlur={() => {
+					autosaveContent(note_id!, editorContent!);
+					showLiveChanges(note_id!, editorContent!);
+				}}
 				apiKey="w7sjc38sud70tb0pse4oswh03h6c1pmth6o10a3vp7z35sbc"
 				onEditorChange={(newValue, editor) => {
-					setEditorContent(editor.getContent({ format: "text" }));
+					setEditorContent(editor.getContent({ format: "html" }));
 					setValue(newValue);
 				}}
-				initialValue={`${
-					noteContent === null
-						? ""
-						: noteContent &&
-						  `<h3>${noteContent[0].title}</h3><p>${noteContent[0].content} <br /> ${noteContent[0]._id}</p>`
-				}`}
+				initialValue={noteContent ? noteContent[0].content : ""}
 				init={{
 					plugins:
 						"anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
@@ -51,7 +69,6 @@ export default function NoteView() {
 					content_style: `
                         * {
                             background: white;
-                            line-height: 5px;
                         }
                     `
 				}}
