@@ -6,12 +6,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import useAuth from "../contexts/authContext";
 import { useParams } from "react-router-dom";
 import useNoteLogic from "../hooks/useNoteLogic";
+import moment, { Moment } from "moment";
 
 interface Props {
 	updateNotebookNoteData: (
 		new_content: string,
 		new_title: string,
-		note_id: string
+		note_id: string,
+		last_updated: string
 	) => void;
 	selectedNoteID: string | undefined;
 	noteContent: string | undefined;
@@ -30,7 +32,8 @@ export default function NoteView({
 	const [editorContent, setEditorContent] = useState<string>();
 	// const [value, setValue] = useState<string>();
 	const { autosaveContent } = useNoteLogic();
-	const [test, setTest] = useState<string>();
+
+	// TODO - need to make the "share link" button work
 
 	// TODO - change the method in which the notes are saved because you always have to click out of the textarea and that can be cumbersome
 
@@ -63,9 +66,13 @@ export default function NoteView({
 					title: title
 				};
 
-				updateNotebookNoteData(editorContent, title, note_id);
+				const current_time: string = moment().format("h:m A");
+				const current_date: string = moment().format("MM/DD/YYYY");
+				const full_time: Moment = moment(`${current_date} ${current_time}`);
+				const last_updated: string = full_time.fromNow();
+
+				updateNotebookNoteData(editorContent, title, note_id, last_updated);
 				setNoteData([updatedNotes[noteIndex]]);
-				console.log(updatedNotes[noteIndex].content);
 			}
 		}
 	}

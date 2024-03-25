@@ -53,11 +53,17 @@ export default function NotesPanel() {
 	function updateNotebookNoteData(
 		new_content: string,
 		new_title: string,
-		note_id: string
+		note_id: string,
+		last_updated: string
 	) {
 		const updatedNotes = notebookNotesCopy.map((note: Note_Interface) => {
 			if (note._id === note_id) {
-				return { ...note, content: new_content, title: new_title };
+				return {
+					...note,
+					content: new_content,
+					title: new_title,
+					timeEdited: last_updated
+				};
 			}
 			return note;
 		});
@@ -140,7 +146,9 @@ export default function NotesPanel() {
 											.replace("&nbsp;", "")
 											.trim()}
 									</p>
-									<small>{note.timeEdited.replace(/(<([^>]+)>)/gi, "")}</small>
+									<small>
+										{note.timeEdited ? `Last updated ${note.timeEdited}` : ""}
+									</small>
 								</div>
 							</Link>
 						))}
