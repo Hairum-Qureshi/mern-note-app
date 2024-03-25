@@ -141,11 +141,28 @@ export default function NotesPanel() {
 											.replace("&nbsp;", "")}
 									</h3>
 									<p>
+										{/* {note.content
+											.replace(/<[^>]+>/g, "")
+											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
+											.replace("&nbsp;", "")
+											.trim()} */}
 										{note.content
 											.replace(/<[^>]+>/g, "")
 											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
 											.replace("&nbsp;", "")
-											.trim()}
+											.trim()
+											.split(/\s+/).length > 60
+											? note.content
+													.replace(/<[^>]+>/g, "")
+													.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
+													.replace("&nbsp;", "")
+													.trim()
+													.substring(0, 67) + "..."
+											: note.content
+													.replace(/<[^>]+>/g, "")
+													.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
+													.replace("&nbsp;", "")
+													.trim()}
 									</p>
 									<small>
 										{note.timeEdited

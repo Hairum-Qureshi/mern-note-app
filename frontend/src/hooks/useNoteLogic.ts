@@ -9,7 +9,6 @@ export default function useNoteLogic(): NoteLogicProperties {
 		title: string,
 		last_updated: string
 	) {
-		console.log(last_updated);
 		axios.patch(
 			`http://localhost:4000/api/notes/note/${note_id}/update`,
 			{
