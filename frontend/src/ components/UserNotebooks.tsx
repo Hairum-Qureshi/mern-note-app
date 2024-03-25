@@ -25,7 +25,6 @@ export default function UserNotebooks() {
 	const { user_id } = useParams();
 	const [notebookDataCopy, setNotebookDataCopy] = useState<Notebook[]>();
 	const [modalLabelText, setModalText] = useState("Rename your notebook:");
-	// const { } = useNotebookLogic();
 
 	useEffect(() => {
 		if (notebookData) {

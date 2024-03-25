@@ -17,7 +17,7 @@ export default function useNotebookData(): NoteBookDataProperties {
 					setNoteContent([response.data]);
 				})
 				.catch(error => {
-					console.log(error);
+					// console.log(error);
 				});
 		} else {
 			console.log("note_id is undefined");
@@ -31,7 +31,7 @@ export default function useNotebookData(): NoteBookDataProperties {
 			);
 			setNotebookNotes(response.data);
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 		}
 	}
 

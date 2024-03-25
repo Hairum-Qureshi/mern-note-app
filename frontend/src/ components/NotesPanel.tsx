@@ -7,33 +7,78 @@ import { faCheck, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import NoteView from "./NoteView";
-import useNotebookLogic from "../hooks/useNotebookLogic";
 import NotFound from "./NotFound";
 import toast, { Toaster } from "react-hot-toast";
+import useNotebookLogic from "../hooks/useNotebookLogic";
 
-// TODO: need to make the "share notes" link button work.
-
-// TODO: note blocks all fire a "Double clicked!" alert message when you double click. Implement feature to prompt user asking if they'd like to delete the note if double clicked
+// TODO - need to add a character limit in terms of the notes in the boxes being displayed. If they're X amount of words/characters, replace the rest with "...".
 
 export default function NotesPanel() {
 	const { userData } = useAuth()!;
 	const { createdNotes, createNote, getNotes, notebookNotes } =
 		useNotebookData();
+	const { getNotebook } = useNotebookLogic();
 	const { user_id, notebook_id } = useParams();
 	const [pressed, setPressed] = useState(false);
-	const { getNotebook } = useNotebookLogic();
 	const [currentNotebookName, setCurrentNotebookName] = useState<string>();
+	const [notebookNotesCopy, setNotebookNotesCopy] = useState<Note_Interface[]>(
+		[]
+	);
+	const [selectedNoteID, setSelectedNoteID] = useState<string>();
+	const [noteContent, setNoteContent] = useState<string | undefined>();
 
 	useEffect(() => {
-		getNotes(notebook_id);
-
-		async function getNoteData() {
+		async function fetchData() {
 			const notebookName: string | undefined = await getNotebook(notebook_id);
 			setCurrentNotebookName(notebookName);
+			getNotes(notebook_id);
 		}
+		fetchData();
+	}, [notebook_id]);
 
-		getNoteData();
-	}, [createdNotes, notebookNotes]);
+	useEffect(() => {
+		if (notebookNotes) {
+			setNotebookNotesCopy([...notebookNotes]);
+		}
+	}, [notebookNotes]);
+
+	useEffect(() => {
+		// Check if a new note has been created
+		if (createdNotes.length > notebookNotesCopy.length) {
+			// If a new note has been created, fetch the updated notes
+			getNotes(notebook_id);
+		}
+	}, [createdNotes, notebookNotesCopy, getNotes, notebook_id]);
+
+	function updateNotebookNoteData(
+		new_content: string,
+		new_title: string,
+		note_id: string
+	) {
+		const updatedNotes = notebookNotesCopy.map((note: Note_Interface) => {
+			if (note._id === note_id) {
+				return { ...note, content: new_content, title: new_title };
+			}
+			return note;
+		});
+		setNotebookNotesCopy(updatedNotes);
+	}
+
+	function getNoteContent(note_id: string) {
+		if (notebookNotesCopy) {
+			const noteCollection: (Note_Interface | undefined)[] =
+				notebookNotesCopy.filter((note: Note_Interface) => {
+					if (note._id === note_id) {
+						return note;
+					}
+				});
+
+			if (noteCollection) {
+				const content: string | undefined = noteCollection[0]?.content;
+				setNoteContent(content);
+			}
+		}
+	}
 
 	return userData.message !== "user not found" ? (
 		<>
@@ -68,14 +113,18 @@ export default function NotesPanel() {
 				>
 					Create Note
 				</button>
-				{notebookNotes &&
-					notebookNotes
+				{notebookNotesCopy &&
+					notebookNotesCopy
 						.slice()
 						.reverse()
 						.map((note: Note_Interface) => (
 							<Link
 								to={`/user/${user_id}/notebook/${notebook_id}/note/${note._id}`}
 								key={note._id}
+								onClick={() => {
+									setSelectedNoteID(note._id);
+									getNoteContent(note._id);
+								}}
 								onDoubleClick={() => alert("Double clicked!")}
 							>
 								<div className={notes_css.block}>
@@ -87,7 +136,6 @@ export default function NotesPanel() {
 									<p>
 										{note.content
 											.replace(/<[^>]+>/g, "")
-											// Replace the first header with an empty string if it exists
 											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
 											.replace("&nbsp;", "")
 											.trim()}
@@ -97,7 +145,15 @@ export default function NotesPanel() {
 							</Link>
 						))}
 			</div>
-			{notebookNotes && notebookNotes.length === 0 ? "" : <NoteView />}
+			{notebookNotes && notebookNotes.length === 0 ? (
+				""
+			) : (
+				<NoteView
+					updateNotebookNoteData={updateNotebookNoteData}
+					selectedNoteID={selectedNoteID}
+					noteContent={noteContent}
+				/>
+			)}
 		</>
 	) : (
 		<NotFound />
