@@ -95,7 +95,7 @@ router.post("/create-note", async (req, res) => {
 router.patch("/note/:note_id/update", async (req, res) => {
 	// ** ALL ROUTES HAVE THE PREFIX /api/notes/ ** //
 	const { note_id } = req.params;
-	const { note_content, title } = req.body;
+	const { note_content, title, last_updated } = req.body;
 
 	await Note.findByIdAndUpdate(
 		{
@@ -103,7 +103,8 @@ router.patch("/note/:note_id/update", async (req, res) => {
 		},
 		{
 			content: note_content,
-			title: title
+			title: title,
+			timeEdited: last_updated
 		}
 	);
 });

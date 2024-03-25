@@ -10,6 +10,7 @@ import NoteView from "./NoteView";
 import NotFound from "./NotFound";
 import toast, { Toaster } from "react-hot-toast";
 import useNotebookLogic from "../hooks/useNotebookLogic";
+import moment from "moment";
 
 // TODO - need to add a character limit in terms of the notes in the boxes being displayed. If they're X amount of words/characters, replace the rest with "...".
 
@@ -147,7 +148,9 @@ export default function NotesPanel() {
 											.trim()}
 									</p>
 									<small>
-										{note.timeEdited ? `Last updated ${note.timeEdited}` : ""}
+										{note.timeEdited
+											? `Last updated ${moment(note.timeEdited).fromNow()}`
+											: ""}
 									</small>
 								</div>
 							</Link>

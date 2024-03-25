@@ -100,6 +100,7 @@ export interface NoteLogicProperties {
 	autosaveContent: (
 		note_id: string,
 		editorContent: string,
-		title: string
+		title: string,
+		last_updated: string
 	) => void;
 }

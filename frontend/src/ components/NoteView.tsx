@@ -68,10 +68,11 @@ export default function NoteView({
 
 				const current_time: string = moment().format("h:m A");
 				const current_date: string = moment().format("MM/DD/YYYY");
-				const full_time: Moment = moment(`${current_date} ${current_time}`);
-				const last_updated: string = full_time.fromNow();
+				const full_time: string = moment(
+					`${current_date} ${current_time}`
+				).toString();
 
-				updateNotebookNoteData(editorContent, title, note_id, last_updated);
+				updateNotebookNoteData(editorContent, title, note_id, full_time);
 				setNoteData([updatedNotes[noteIndex]]);
 			}
 		}
@@ -87,7 +88,10 @@ export default function NoteView({
 						editorContent!
 							.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/i)?.[1]
 							?.split(/\r?\n/)[0]
-							?.trim() ?? "Untitled"
+							?.trim() ?? "Untitled",
+						moment(
+							`${moment().format("MM/DD/YYYY")} ${moment().format("h:m A")}`
+						).toString()
 					);
 					showLiveChanges(
 						note_id!,
