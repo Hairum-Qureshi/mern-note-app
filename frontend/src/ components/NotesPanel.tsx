@@ -87,6 +87,12 @@ export default function NotesPanel() {
 		}
 	}
 
+	function copyURL() {
+		const original_url = window.location.href.split("/");
+		const shareable_url = `${original_url[0]}//${original_url[2]}/notebook/${original_url[6]}?shareable=true`;
+		navigator.clipboard.writeText(shareable_url);
+	}
+
 	return userData.message !== "user not found" ? (
 		<>
 			<Toaster />
@@ -97,7 +103,8 @@ export default function NotesPanel() {
 				<span
 					onClick={() => {
 						setPressed(true);
-						return toast("Shareable link copied!", {
+						copyURL();
+						toast("Shareable link copied!", {
 							icon: "🔗",
 							style: {
 								borderRadius: "10px",
@@ -141,11 +148,6 @@ export default function NotesPanel() {
 											.replace("&nbsp;", "")}
 									</h3>
 									<p>
-										{/* {note.content
-											.replace(/<[^>]+>/g, "")
-											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
-											.replace("&nbsp;", "")
-											.trim()} */}
 										{note.content
 											.replace(/<[^>]+>/g, "")
 											.replace(note.title.replace(/(<([^>]+)>)/gi, ""), "")
